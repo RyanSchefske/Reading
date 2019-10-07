@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>263476110867-37ujfnqsq7rv39bq1sr5gpjbke9fj8rr.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.263476110867-37ujfnqsq7rv39bq1sr5gpjbke9fj8rr</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDRMlR75sQPEmsgAmPB8FEPBK34hdei65M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>263476110867</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.ryanschefske.Reader</string>
+	<key>PROJECT_ID</key>
+	<string>reading-56898</string>
+	<key>STORAGE_BUCKET</key>
+	<string>reading-56898.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:263476110867:ios:edca32ed827220e6</string>
+	<key>DATABASE_URL</key>
+	<string>https://reading-56898.firebaseio.com</string>
+</dict>
+</plist>
