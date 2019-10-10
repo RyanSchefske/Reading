@@ -13,22 +13,21 @@ import AVFoundation
 class InputTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
     var image: UIImage? = nil
+    var customNav = UIImageView()
     var textLabel = UITextView()
     var stackView = UIStackView()
     var scanButton = CustomButton()
     var photoButton = CustomButton()
     var speakButton = CustomButton()
     var nextButton = UIButton()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = Colors().offWhite
         
         setup()
         
         UIView.animate(withDuration: 1.5, delay: 0, options: .curveEaseOut, animations: {
-            self.textLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 5).isActive = true
+            self.textLabel.topAnchor.constraint(equalTo: self.customNav.bottomAnchor, constant: 7).isActive = true
             self.textLabel.widthAnchor.constraint(equalToConstant: self.view.frame.width - 16).isActive = true
             self.textLabel.heightAnchor.constraint(equalToConstant: self.view.frame.height / 2.5).isActive = true
             self.textLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
@@ -46,11 +45,32 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
         recognizeText()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-    }
-    
     func setup() {
-        title = "Reader"
+        let strokeTextAttributes = [
+            NSAttributedString.Key.strokeColor : UIColor.lightGray,
+            NSAttributedString.Key.foregroundColor : UIColor.white,
+            NSAttributedString.Key.strokeWidth : -2,
+            NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30)]
+            as [NSAttributedString.Key : Any]
+        //Making outline here
+        let titleLabel = UILabel()
+        titleLabel.attributedText = NSMutableAttributedString(string: "SmartRead", attributes: strokeTextAttributes)
+        navigationItem.titleView = titleLabel
+        
+        view.backgroundColor = Colors().offWhite
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        
+        customNav = {
+            let image = UIImageView(frame: CGRect(x: -2, y: -2, width: view.frame.width + 4, height: view.frame.height / 8))
+            image.image = UIImage(named: "customNavBar")?.withRenderingMode(.alwaysTemplate)
+            image.tintColor = Colors().buttonColor
+            return image
+        }()
+        view.addSubview(customNav)
+        
+        customNav.topAnchor.constraint(equalTo: view.topAnchor, constant: -2).isActive = true
+        customNav.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -2).isActive = true
+        customNav.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -2).isActive = true
         
         textLabel = {
             let textView = UITextView(frame: CGRect(x: 0, y: 100, width: 50, height: 50))
@@ -147,7 +167,7 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
         setupTextField()
     }
     
-    func setupTextField() {
+    private func setupTextField() {
         let toolBar = UIToolbar()
         toolBar.sizeToFit()
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(dismissKeyboard))
@@ -193,10 +213,22 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
                     }
                 }
             }
+        } else {
+            print("No Image")
         }
     }
     
-    @objc func speak() {
+    lazy var speechRecognizer: SpeechRecognizer = {
+        let launcher = SpeechRecognizer()
+        return launcher
+    }()
+    
+    @objc private func speak() {
+        speechRecognizer.showSpeechRecognizer()
+    }
+    
+    /*
+    @objc private func speak() {
         if let text = textLabel.text {
             let utterance = AVSpeechUtterance(string: text)
             print(utterance)
@@ -207,18 +239,19 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
             synthesizer.speak(utterance)
         }
     }
+ */
     
-    @objc func scan() {
+    @objc private func scan() {
         navigationController?.pushViewController(ScanViewController(), animated: true)
     }
     
-    @objc func read() {
+    @objc private func read() {
         let vc = ReadViewController()
         vc.readingText = textLabel.text
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func selectPhoto() {
+    @objc private func selectPhoto() {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self
@@ -227,7 +260,7 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
-    @objc func nextClicked(_ sender: UIButton) {
+    @objc private func nextClicked(_ sender: UIButton) {
         if let text = textLabel.text {
             if text == "Type, paste, or select a button below to begin!" || text.isEmpty {
                 sender.shake()

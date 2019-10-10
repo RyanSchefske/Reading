@@ -38,7 +38,7 @@ class SpeechViewController: UIViewController {
     
     @objc func speak() {
         let utterance = AVSpeechUtterance(string: "Hello World, this is a test of the speech synthesizer in this reading app")
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         //"en-US" - American, "en-IE" - Irish, "en-AU" - Australian, "en-GB" - British
         
         let synthesizer = AVSpeechSynthesizer()

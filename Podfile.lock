@@ -103,7 +103,7 @@ DEPENDENCIES:
   - WeScan
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Firebase
     - FirebaseAnalytics
     - FirebaseCore
@@ -141,4 +141,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: cb49704f99e9315f8cea2cdb0be25331123a529f
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.8.3

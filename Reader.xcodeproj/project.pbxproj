@@ -3,14 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08715F231F524D00CBD3AB /* InputTextController.swift */; };
 		3D497C6B2339B7A800437B97 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D497C6A2339B7A800437B97 /* Colors.swift */; };
 		3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */; };
-		3D5448AA234AE48D00B50888 /* ChoiceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5448A9234AE48D00B50888 /* ChoiceButton.swift */; };
+		3D8D3667234EC554001DFFA8 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D3666234EC554001DFFA8 /* SpeechRecognizer.swift */; };
 		3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF22423174EA300E51F09 /* AppDelegate.swift */; };
 		3D8FF22C23174EA400E51F09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22B23174EA400E51F09 /* Assets.xcassets */; };
 		3D8FF22F23174EA400E51F09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22D23174EA400E51F09 /* LaunchScreen.storyboard */; };
@@ -42,8 +42,8 @@
 		3D08715F231F524D00CBD3AB /* InputTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextController.swift; sourceTree = "<group>"; };
 		3D497C6A2339B7A800437B97 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChoicesViewController.swift; sourceTree = "<group>"; };
-		3D5448A9234AE48D00B50888 /* ChoiceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoiceButton.swift; sourceTree = "<group>"; };
-		3D8FF22123174EA300E51F09 /* Reader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D8D3666234EC554001DFFA8 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		3D8FF22123174EA300E51F09 /* SmartRead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartRead.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8FF22423174EA300E51F09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D8FF22B23174EA400E51F09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D8FF22E23174EA400E51F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -86,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				3D08715F231F524D00CBD3AB /* InputTextController.swift */,
+				3D8D3666234EC554001DFFA8 /* SpeechRecognizer.swift */,
 				3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */,
 				3DE081E9232B5D85009D3680 /* ReadViewController.swift */,
 				3DA7D02D231CE1F00092A9F0 /* SpeedReadViewController.swift */,
@@ -107,7 +108,6 @@
 			isa = PBXGroup;
 			children = (
 				3DBE9783232E8D0200077C36 /* CustomButton.swift */,
-				3D5448A9234AE48D00B50888 /* ChoiceButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,7 +125,7 @@
 		3D8FF22223174EA300E51F09 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3D8FF22123174EA300E51F09 /* Reader.app */,
+				3D8FF22123174EA300E51F09 /* SmartRead.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,7 +180,7 @@
 			);
 			name = Reader;
 			productName = Reader;
-			productReference = 3D8FF22123174EA300E51F09 /* Reader.app */;
+			productReference = 3D8FF22123174EA300E51F09 /* SmartRead.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -253,17 +253,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Reader/Pods-Reader-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleMobileVision/GoogleMVTextDetectorResources.bundle",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMVTextDetectorResources.bundle",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Reader/Pods-Reader-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BC11F0092DBA10442B164E2E /* [CP] Embed Pods Frameworks */ = {
@@ -271,29 +270,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Reader/Pods-Reader-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleAPIClientForREST/GoogleAPIClientForREST.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/WeScan/WeScan.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleAPIClientForREST.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WeScan.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Reader/Pods-Reader-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -308,8 +294,8 @@
 				3D8FF23723174F1700E51F09 /* SpeechViewController.swift in Sources */,
 				3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */,
 				3D8FF2392318AA4E00E51F09 /* ScanViewController.swift in Sources */,
+				3D8D3667234EC554001DFFA8 /* SpeechRecognizer.swift in Sources */,
 				3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */,
-				3D5448AA234AE48D00B50888 /* ChoiceButton.swift in Sources */,
 				3DE081EA232B5D85009D3680 /* ReadViewController.swift in Sources */,
 				3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */,
 				3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */,
@@ -460,7 +446,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanschefske.Reader;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SmartRead;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -480,7 +466,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanschefske.Reader;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = SmartRead;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

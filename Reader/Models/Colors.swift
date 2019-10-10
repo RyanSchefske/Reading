@@ -11,7 +11,7 @@ import UIKit
 class Colors {
     var gl: CAGradientLayer!
     var offWhite = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
-    var buttonColor = UIColor(red: 55/255, green: 110/255, blue: 1, alpha: 1)
+    var buttonColor = UIColor(red: 31/255, green: 128/255, blue: 1, alpha: 1)
     
     init() {
         let topColor = UIColor.white.cgColor

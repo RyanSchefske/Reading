@@ -22,10 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = UINavigationController(rootViewController: InputTextController())
         
-        UINavigationBar.appearance().isTranslucent = false
-        UINavigationBar.appearance().barTintColor = .white
-        UINavigationBar.appearance().tintColor = Colors().buttonColor
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : Colors().buttonColor]
+        UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().barTintColor = Colors().offWhite
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white,
+                                                            NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25)!]
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().backgroundColor = .clear
         
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)

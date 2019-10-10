@@ -23,11 +23,17 @@ class ReadingChoicesViewController: UIViewController {
     
     func setup() {
         title = "Choices"
-        view.backgroundColor = .white
+        view.backgroundColor = Colors().offWhite
+        navigationItem.backBarButtonItem?.title = ""
         
-        oneAtATimeButton.setTitle("One at a time", for: .normal)
+        oneAtATimeButton.setTitle("Speed Read", for: .normal)
+        oneAtATimeButton.addTarget(self, action: #selector(speedClicked), for: .touchUpInside)
+        
         readButton.setTitle("Read", for: .normal)
+        readButton.addTarget(self, action: #selector(readClicked), for: .touchUpInside)
+        
         speakButton.setTitle("Speak", for: .normal)
+        speakButton.addTarget(self, action: #selector(speakClicked), for: .touchUpInside)
         
         stackView = {
             let stack = UIStackView()
@@ -47,6 +53,21 @@ class ReadingChoicesViewController: UIViewController {
         stackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
         stackView.heightAnchor.constraint(equalToConstant: view.frame.height / 1.5).isActive = true
         stackView.widthAnchor.constraint(equalToConstant: view.frame.width - 16).isActive = true
+    }
+    
+    @objc private func speedClicked() {
+        let vc = SpeedReadViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func readClicked() {
+        let vc = ReadViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func speakClicked() {
+        let vc = SpeechViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

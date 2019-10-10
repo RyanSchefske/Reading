@@ -40,6 +40,10 @@
 	<array>
 		<string>audio</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>To get something to read!</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
