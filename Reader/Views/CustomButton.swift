@@ -67,29 +67,3 @@ extension UIButton {
         layer.add(shake, forKey: nil)
     }
 }
-
-class ChoiceButton: UIButton {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setup() {
-        backgroundColor = Colors().buttonColor
-        clipsToBounds = false
-        layer.cornerRadius = 10
-        layer.shadowOpacity = 1
-        layer.shadowOffset = CGSize(width: 0, height: 7)
-        layer.shadowColor = UIColor.lightGray.cgColor
-        translatesAutoresizingMaskIntoConstraints = false
-        widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 16).isActive = true
-        contentVerticalAlignment = .top
-        titleEdgeInsets = UIEdgeInsets(top: 15, left: 0, bottom: 0, right: 0)
-    }
-}

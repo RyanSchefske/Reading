@@ -22,7 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = UINavigationController(rootViewController: InputTextController())
         
+        // Use Firebase library to configure APIs.
+        FirebaseApp.configure()
+        // Initialize the Google Mobile Ads SDK.
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        
         UINavigationBar.appearance().isTranslucent = true
+        UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().barTintColor = Colors().offWhite
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white,
                                                             NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25)!]
@@ -43,8 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         catch let error as NSError {
             print("Error: Could not setActive to true: \(error), \(error.userInfo)")
         }
-        
-        FirebaseApp.configure()
         
         return true
     }

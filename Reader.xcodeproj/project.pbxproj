@@ -8,20 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08715F231F524D00CBD3AB /* InputTextController.swift */; };
+		3D35DAF4236DE8C9005D7170 /* UIView+Ads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D35DAF3236DE8C9005D7170 /* UIView+Ads.swift */; };
+		3D35DAF6236DEC40005D7170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */; };
+		3D43E9862350F6E6003C1F75 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */; };
 		3D497C6B2339B7A800437B97 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D497C6A2339B7A800437B97 /* Colors.swift */; };
 		3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */; };
-		3D8D3667234EC554001DFFA8 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D3666234EC554001DFFA8 /* SpeechRecognizer.swift */; };
+		3D729AB9235427B800E64731 /* ChoicesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D729AB8235427B800E64731 /* ChoicesCell.swift */; };
+		3D8D3667234EC554001DFFA8 /* SpeechRecognizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */; };
 		3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF22423174EA300E51F09 /* AppDelegate.swift */; };
 		3D8FF22C23174EA400E51F09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22B23174EA400E51F09 /* Assets.xcassets */; };
 		3D8FF22F23174EA400E51F09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22D23174EA400E51F09 /* LaunchScreen.storyboard */; };
 		3D8FF23723174F1700E51F09 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF23623174F1700E51F09 /* SpeechViewController.swift */; };
 		3D8FF2392318AA4E00E51F09 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */; };
 		3DA7D02E231CE1F00092A9F0 /* SpeedReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA7D02D231CE1F00092A9F0 /* SpeedReadViewController.swift */; };
+		3DB891952371DADD001CCAA4 /* SpeechSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */; };
 		3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9783232E8D0200077C36 /* CustomButton.swift */; };
 		3DE081EA232B5D85009D3680 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE081E9232B5D85009D3680 /* ReadViewController.swift */; };
-		3DE0EA1E234C0E0400990D37 /* Pods_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 531830F23B850379CA43C99C /* Pods_Reader.framework */; };
-		3DE0EA1F234C0E0400990D37 /* Pods_Reader.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 531830F23B850379CA43C99C /* Pods_Reader.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3DF510FC231C7F02002CEF5B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3DF510FB231C7F02002CEF5B /* GoogleService-Info.plist */; };
+		B2C8D69CFDBF3027D84BC811 /* Pods_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 531830F23B850379CA43C99C /* Pods_Reader.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,7 +34,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3DE0EA1F234C0E0400990D37 /* Pods_Reader.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -40,10 +42,14 @@
 
 /* Begin PBXFileReference section */
 		3D08715F231F524D00CBD3AB /* InputTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextController.swift; sourceTree = "<group>"; };
+		3D35DAF3236DE8C9005D7170 /* UIView+Ads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ads.swift"; sourceTree = "<group>"; };
+		3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		3D497C6A2339B7A800437B97 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChoicesViewController.swift; sourceTree = "<group>"; };
-		3D8D3666234EC554001DFFA8 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
-		3D8FF22123174EA300E51F09 /* SmartRead.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartRead.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D729AB8235427B800E64731 /* ChoicesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesCell.swift; sourceTree = "<group>"; };
+		3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerViewController.swift; sourceTree = "<group>"; };
+		3D8FF22123174EA300E51F09 /* Scholarly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scholarly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8FF22423174EA300E51F09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D8FF22B23174EA400E51F09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D8FF22E23174EA400E51F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,9 +57,9 @@
 		3D8FF23623174F1700E51F09 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		3DA7D02D231CE1F00092A9F0 /* SpeedReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedReadViewController.swift; sourceTree = "<group>"; };
+		3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSettingsViewController.swift; sourceTree = "<group>"; };
 		3DBE9783232E8D0200077C36 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		3DE081E9232B5D85009D3680 /* ReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
-		3DF510FB231C7F02002CEF5B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		531830F23B850379CA43C99C /* Pods_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		590479781060737383D8E1F2 /* Pods-Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reader/Pods-Reader.release.xcconfig"; sourceTree = "<group>"; };
 		B79ECB19762986EEC5F66A4F /* Pods-Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reader/Pods-Reader.debug.xcconfig"; sourceTree = "<group>"; };
@@ -64,19 +70,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DE0EA1E234C0E0400990D37 /* Pods_Reader.framework in Frameworks */,
+				B2C8D69CFDBF3027D84BC811 /* Pods_Reader.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D35DAF2236DE8AD005D7170 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3D35DAF3236DE8C9005D7170 /* UIView+Ads.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		3D5448A3234ADB1E00B50888 /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
 				3D8FF22423174EA300E51F09 /* AppDelegate.swift */,
 				3D8FF22B23174EA400E51F09 /* Assets.xcassets */,
-				3DF510FB231C7F02002CEF5B /* GoogleService-Info.plist */,
+				3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */,
 				3D8FF22D23174EA400E51F09 /* LaunchScreen.storyboard */,
 			);
 			path = SupportFiles;
@@ -86,12 +100,13 @@
 			isa = PBXGroup;
 			children = (
 				3D08715F231F524D00CBD3AB /* InputTextController.swift */,
-				3D8D3666234EC554001DFFA8 /* SpeechRecognizer.swift */,
-				3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */,
-				3DE081E9232B5D85009D3680 /* ReadViewController.swift */,
-				3DA7D02D231CE1F00092A9F0 /* SpeedReadViewController.swift */,
-				3D8FF23623174F1700E51F09 /* SpeechViewController.swift */,
 				3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */,
+				3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */,
+				3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */,
+				3D8FF23623174F1700E51F09 /* SpeechViewController.swift */,
+				3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */,
+				3DA7D02D231CE1F00092A9F0 /* SpeedReadViewController.swift */,
+				3DE081E9232B5D85009D3680 /* ReadViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -108,6 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				3DBE9783232E8D0200077C36 /* CustomButton.swift */,
+				3D729AB8235427B800E64731 /* ChoicesCell.swift */,
+				3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,7 +142,7 @@
 		3D8FF22223174EA300E51F09 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3D8FF22123174EA300E51F09 /* SmartRead.app */,
+				3D8FF22123174EA300E51F09 /* Scholarly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,6 +155,7 @@
 				3D5448A4234ADB3A00B50888 /* Controllers */,
 				3D5448A5234ADB5900B50888 /* Models */,
 				3D5448A6234ADB6A00B50888 /* Views */,
+				3D35DAF2236DE8AD005D7170 /* Extensions */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
@@ -180,7 +198,7 @@
 			);
 			name = Reader;
 			productName = Reader;
-			productReference = 3D8FF22123174EA300E51F09 /* SmartRead.app */;
+			productReference = 3D8FF22123174EA300E51F09 /* Scholarly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -223,7 +241,7 @@
 			files = (
 				3D8FF22F23174EA400E51F09 /* LaunchScreen.storyboard in Resources */,
 				3D8FF22C23174EA400E51F09 /* Assets.xcassets in Resources */,
-				3DF510FC231C7F02002CEF5B /* GoogleService-Info.plist in Resources */,
+				3D35DAF6236DEC40005D7170 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,14 +307,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D43E9862350F6E6003C1F75 /* CustomNavigationBar.swift in Sources */,
 				3DA7D02E231CE1F00092A9F0 /* SpeedReadViewController.swift in Sources */,
+				3D729AB9235427B800E64731 /* ChoicesCell.swift in Sources */,
+				3DB891952371DADD001CCAA4 /* SpeechSettingsViewController.swift in Sources */,
 				3D497C6B2339B7A800437B97 /* Colors.swift in Sources */,
 				3D8FF23723174F1700E51F09 /* SpeechViewController.swift in Sources */,
 				3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */,
 				3D8FF2392318AA4E00E51F09 /* ScanViewController.swift in Sources */,
-				3D8D3667234EC554001DFFA8 /* SpeechRecognizer.swift in Sources */,
+				3D8D3667234EC554001DFFA8 /* SpeechRecognizerViewController.swift in Sources */,
 				3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */,
 				3DE081EA232B5D85009D3680 /* ReadViewController.swift in Sources */,
+				3D35DAF4236DE8C9005D7170 /* UIView+Ads.swift in Sources */,
 				3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */,
 				3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */,
 			);
@@ -438,6 +460,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3LN4LFZD99;
 				INFOPLIST_FILE = Reader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -446,7 +469,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanschefske.Reader;
-				PRODUCT_NAME = SmartRead;
+				PRODUCT_NAME = Scholarly;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -458,6 +481,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3LN4LFZD99;
 				INFOPLIST_FILE = Reader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -466,7 +490,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryanschefske.Reader;
-				PRODUCT_NAME = SmartRead;
+				PRODUCT_NAME = Scholarly;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

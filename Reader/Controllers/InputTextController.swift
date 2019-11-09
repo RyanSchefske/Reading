@@ -9,10 +9,12 @@
 import UIKit
 import FirebaseMLVision
 import AVFoundation
+import GoogleMobileAds
 
-class InputTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class InputTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, GADBannerViewDelegate {
     
     var image: UIImage? = nil
+    var contentString = String()
     var customNav = UIImageView()
     var textLabel = UITextView()
     var stackView = UIStackView()
@@ -20,6 +22,8 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
     var photoButton = CustomButton()
     var speakButton = CustomButton()
     var nextButton = UIButton()
+    var bgView = UIView()
+    var bannerView = GADBannerView()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +36,11 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
             self.textLabel.heightAnchor.constraint(equalToConstant: self.view.frame.height / 2.5).isActive = true
             self.textLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
             
+            self.bgView.topAnchor.constraint(equalTo: self.textLabel.topAnchor).isActive = true
+            self.bgView.heightAnchor.constraint(equalTo: self.textLabel.heightAnchor).isActive = true
+            self.bgView.widthAnchor.constraint(equalTo: self.textLabel.widthAnchor).isActive = true
+            self.bgView.centerXAnchor.constraint(equalTo: self.textLabel.centerXAnchor).isActive = true
+            
             self.stackView.topAnchor.constraint(equalTo: self.textLabel.bottomAnchor, constant: 10).isActive = true
             self.nextButton.topAnchor.constraint(equalTo: self.stackView.bottomAnchor, constant: 15).isActive = true
             
@@ -39,60 +48,82 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
         }) { (completed) in
             // Do Nothing
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if image != nil {
+            recognizeText()
+        }
         
-        textLabel.selectedTextRange = textLabel.textRange(from: textLabel.beginningOfDocument, to: textLabel.beginningOfDocument)
-        
-        recognizeText()
+        if contentString.isEmpty && (textLabel.text == "Type, paste, or select a button below to begin!" || textLabel.text.isEmpty) {
+            textLabel.text = "Type, paste, or select a button below to begin!"
+            textLabel.textColor = .lightGray
+        } else {
+            textLabel.text = contentString
+            textLabel.textColor = .black
+        }
     }
     
     func setup() {
-        let strokeTextAttributes = [
-            NSAttributedString.Key.strokeColor : UIColor.lightGray,
-            NSAttributedString.Key.foregroundColor : UIColor.white,
-            NSAttributedString.Key.strokeWidth : -2,
-            NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 30)]
-            as [NSAttributedString.Key : Any]
-        //Making outline here
-        let titleLabel = UILabel()
-        titleLabel.attributedText = NSMutableAttributedString(string: "SmartRead", attributes: strokeTextAttributes)
-        navigationItem.titleView = titleLabel
+        navigationItem.titleView = CustomNavigationBar().customTitle(title: "Scholarly")
         
         view.backgroundColor = Colors().offWhite
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        bannerView.adUnitID = "ca-app-pub-2392719817363402/9276402219"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
         
         customNav = {
             let image = UIImageView(frame: CGRect(x: -2, y: -2, width: view.frame.width + 4, height: view.frame.height / 8))
             image.image = UIImage(named: "customNavBar")?.withRenderingMode(.alwaysTemplate)
             image.tintColor = Colors().buttonColor
+            image.translatesAutoresizingMaskIntoConstraints = false
             return image
         }()
         view.addSubview(customNav)
+
+        if UIDevice.current.hasNotch {
+            customNav.heightAnchor.constraint(equalToConstant: self.view.frame.height / 7.5).isActive = true
+        }
         
-        customNav.topAnchor.constraint(equalTo: view.topAnchor, constant: -2).isActive = true
-        customNav.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -2).isActive = true
-        customNav.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -2).isActive = true
+        customNav.topAnchor.constraint(equalTo: view.topAnchor, constant: -4).isActive = true
+        customNav.leftAnchor.constraint(equalTo: view.leftAnchor, constant: -4).isActive = true
+        customNav.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 4).isActive = true
+        customNav.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         textLabel = {
             let textView = UITextView(frame: CGRect(x: 0, y: 100, width: 50, height: 50))
-            textView.center.x = self.view.center.x
-            textView.text = "Type, paste, or select a button below to begin!"
-            textView.font = UIFont(name: "Helvetica", size: 14)
-            textView.textColor = .lightGray
-            textView.layer.borderColor = UIColor.lightGray.cgColor
-            textView.layer.borderWidth = 1
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                textView.font = UIFont(name: "Helvetica", size: 24)
+            } else {
+                textView.font = UIFont(name: "Helvetica", size: 14)
+            }
             textView.backgroundColor = .white
+            textView.isEditable = true
+            textView.center.x = self.view.center.x
+            textView.textColor = .black
             textView.layer.cornerRadius = 5
             textView.translatesAutoresizingMaskIntoConstraints = false
-            
-            textView.clipsToBounds = false
-            textView.layer.shadowOpacity = 0.6
-            textView.layer.shadowOffset = CGSize(width: 0, height: 7)
-            textView.layer.shadowColor = UIColor.lightGray.cgColor
-            
             textView.delegate = self
-            
             return textView
         }()
+        
+        bgView = {
+            let view = UIView()
+            view.backgroundColor = .white
+            view.layer.cornerRadius = 5
+            view.layer.cornerRadius = 10
+            view.layer.shadowOpacity = 1
+            view.layer.shadowOffset = CGSize(width: 0, height: 7)
+            view.layer.shadowColor = UIColor.lightGray.cgColor
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.clipsToBounds = false
+            return view
+        }()
+        view.addSubview(bgView)
         view.addSubview(textLabel)
         
         speakButton = {
@@ -100,6 +131,10 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
             button.addTarget(self, action: #selector(speak), for: .touchUpInside)
             button.setTitle("Speak", for: .normal)
             button.setImage(UIImage(named: "speak"), for: .normal)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                button.titleLabel?.font = button.titleLabel?.font.withSize(30)
+                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 0)
+            }
             return button
         }()
         
@@ -109,6 +144,10 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
             button.setTitle("Scan", for: .normal)
             button.imageEdgeInsets = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: -20)
             button.setImage(UIImage(named: "scan"), for: .normal)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                button.titleLabel?.font = button.titleLabel?.font.withSize(30)
+                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 0)
+            }
             return button
         }()
         
@@ -117,6 +156,10 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
             button.addTarget(self, action: #selector(selectPhoto), for: .touchUpInside)
             button.setTitle("Upload", for: .normal)
             button.setImage(UIImage(named: "upload"), for: .normal)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                button.titleLabel?.font = button.titleLabel?.font.withSize(30)
+                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 75, bottom: 0, right: 0)
+            }
             return button
         }()
         
@@ -157,6 +200,9 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
         textLabel.center = CGPoint(x: self.view.center.x, y: 100)
         textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
+        bgView.center = CGPoint(x: self.view.center.x, y: 100)
+        bgView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stackView.heightAnchor.constraint(equalToConstant: view.frame.height / 3.85).isActive = true
         stackView.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
@@ -186,62 +232,28 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
             
             textRecognizer.process(visionImage) { (result, error) in
                 guard error == nil, let result = result else {
-                    print("Error")
                     return
                 }
                 
-                print(result.text)
-                self.textLabel.text = result.text
-                
-                //let resultText = result.text
-                for block in result.blocks {
-                    let blockText = block.text
-                    print("Block: ")
-                    print(blockText)
-//                    let blockConfidence = block.confidence
-//                    let blockLanguages = block.recognizedLanguages
-//                    let blockCornerPoints = block.cornerPoints
-//                    let blockFrame = block.frame
-                    for line in block.lines {
-                        let lineText = line.text
-                        print("Line: ")
-                        print(lineText)
-//                        let lineConfidence = line.confidence
-//                        let lineLanguages = line.recognizedLanguages
-//                        let lineCornerPoints = line.cornerPoints
-//                        let lineFrame = line.frame
-                    }
+                if self.textLabel.text != "Type, paste, or select a button below to begin!" {
+                    self.contentString = self.textLabel.text + result.text
+                    self.textLabel.text = self.contentString
+                } else {
+                    self.contentString = result.text
+                    self.textLabel.text = self.contentString
+                    self.textLabel.textColor = .black
                 }
             }
-        } else {
-            print("No Image")
         }
     }
     
-    lazy var speechRecognizer: SpeechRecognizer = {
-        let launcher = SpeechRecognizer()
-        return launcher
-    }()
-    
     @objc private func speak() {
-        speechRecognizer.showSpeechRecognizer()
+        saveContent()
+        navigationController?.pushViewController(SpeechRecognizerViewController(), animated: true)
     }
-    
-    /*
-    @objc private func speak() {
-        if let text = textLabel.text {
-            let utterance = AVSpeechUtterance(string: text)
-            print(utterance)
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            //"en-US" - American, "en-IE" - Irish, "en-AU" - Australian, "en-GB" - British
-            
-            let synthesizer = AVSpeechSynthesizer()
-            synthesizer.speak(utterance)
-        }
-    }
- */
     
     @objc private func scan() {
+        saveContent()
         navigationController?.pushViewController(ScanViewController(), animated: true)
     }
     
@@ -252,6 +264,7 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     @objc private func selectPhoto() {
+        saveContent()
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self
@@ -260,13 +273,32 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
         }
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.image = pickedImage
+            recognizeText()
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
     @objc private func nextClicked(_ sender: UIButton) {
         if let text = textLabel.text {
             if text == "Type, paste, or select a button below to begin!" || text.isEmpty {
                 sender.shake()
             } else {
-                navigationController?.pushViewController(ReadingChoicesViewController(), animated: true)
+                saveContent()
+                image = nil
+                let vc = ReadingChoicesViewController()
+                vc.readingText = contentString
+                navigationController?.pushViewController(vc, animated: true)
             }
+        }
+    }
+    
+    func saveContent() {
+        if self.textLabel.text != "Type, paste, or select a button below to begin!" {
+            self.contentString = self.textLabel.text
         }
     }
     
@@ -287,15 +319,18 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
         return false
     }
     
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        if self.view.window != nil {
-            if textView.textColor == .lightGray {
-                textView.selectedTextRange = textView.textRange(from: textView.beginningOfDocument, to: textView.beginningOfDocument)
-            }
-        }
-    }
-    
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        view.addBannerViewToView(bannerView, view)
+    }
+}
+
+extension UIDevice {
+    var hasNotch: Bool {
+        let top = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0
+        return top > 0
     }
 }

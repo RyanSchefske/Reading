@@ -31,16 +31,16 @@ class ScanViewController: UIViewController, ImageScannerControllerDelegate {
             
             if results.doesUserPreferEnhancedImage {
                 if let imageResults = results.enhancedImage {
-                    let vc = InputTextController()
-                    vc.image = imageResults
-                    self.navigationController?.pushViewController(vc, animated: true)
-                } else {
-                    print("Error")
+                    if let vc = self.navigationController?.viewControllers[0] as? InputTextController {
+                        vc.image = imageResults
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
                 }
             } else {
-                let vc = InputTextController()
-                vc.image = results.scannedImage
-                self.navigationController?.pushViewController(vc, animated: true)
+                if let vc = self.navigationController?.viewControllers[0] as? InputTextController {
+                    vc.image = results.scannedImage
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
             }
         }
     }

@@ -10,6 +10,8 @@ target 'Reader' do
   pod 'Firebase/Analytics'
   pod 'Firebase/MLVision'
   pod 'Firebase/MLVisionTextModel'
+  pod 'Firebase/AdMob'
   pod 'WeScan'
+  pod 'MarqueeLabel'
 
 end

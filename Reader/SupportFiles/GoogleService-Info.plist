@@ -32,5 +32,7 @@
 	<string>1:263476110867:ios:edca32ed827220e6</string>
 	<key>DATABASE_URL</key>
 	<string>https://reading-56898.firebaseio.com</string>
+	<key>ADMOB_APP_ID</key>
+	<string>ca-app-pub-2392719817363402~9551734389</string>
 </dict>
 </plist>
