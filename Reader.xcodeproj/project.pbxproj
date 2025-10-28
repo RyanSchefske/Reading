@@ -31,16 +31,11 @@
 		3DSW000F2EB07111005F7731 /* ScrollReadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DSW000E2EB07111005F7731 /* ScrollReadingViewModel.swift */; };
 		3DSW00112EB07222005F7731 /* SpeechRecognizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DSW00102EB07222005F7731 /* SpeechRecognizerView.swift */; };
 		3DSW00132EB07222005F7731 /* SpeechRecognizerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DSW00122EB07222005F7731 /* SpeechRecognizerViewModel.swift */; };
-		3D8D3667234EC554001DFFA8 /* SpeechRecognizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */; };
 		3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF22423174EA300E51F09 /* AppDelegate.swift */; };
 		3D8FF22C23174EA400E51F09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22B23174EA400E51F09 /* Assets.xcassets */; };
 		3D8FF22F23174EA400E51F09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22D23174EA400E51F09 /* LaunchScreen.storyboard */; };
-		3D8FF23723174F1700E51F09 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF23623174F1700E51F09 /* SpeechViewController.swift */; };
 		3D8FF2392318AA4E00E51F09 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */; };
-		3DA7D02E231CE1F00092A9F0 /* SpeedReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA7D02D231CE1F00092A9F0 /* SpeedReadViewController.swift */; };
-		3DB891952371DADD001CCAA4 /* SpeechSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */; };
 		3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9783232E8D0200077C36 /* CustomButton.swift */; };
-		3DE081EA232B5D85009D3680 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE081E9232B5D85009D3680 /* ReadViewController.swift */; };
 		4E9AFED5D74B432DBCA80D1A /* ReadingChoicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616A107E7DB3435F92CDC917 /* ReadingChoicesView.swift */; };
 		649111EFE15741E68D2C52EB /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0B4F84B07D4438BF5E01BC /* RootContainerView.swift */; };
 		8CE9DB4651B9423FBA8459D0 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA65668E6734DB5AE3C9D9D /* InputTextView.swift */; };
@@ -85,18 +80,13 @@
 		3DSW000E2EB07111005F7731 /* ScrollReadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollReadingViewModel.swift; sourceTree = "<group>"; };
 		3DSW00102EB07222005F7731 /* SpeechRecognizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerView.swift; sourceTree = "<group>"; };
 		3DSW00122EB07222005F7731 /* SpeechRecognizerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerViewModel.swift; sourceTree = "<group>"; };
-		3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerViewController.swift; sourceTree = "<group>"; };
 		3D8FF22123174EA300E51F09 /* Scholarly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scholarly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8FF22423174EA300E51F09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D8FF22B23174EA400E51F09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D8FF22E23174EA400E51F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D8FF23023174EA400E51F09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D8FF23623174F1700E51F09 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
-		3DA7D02D231CE1F00092A9F0 /* SpeedReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedReadViewController.swift; sourceTree = "<group>"; };
-		3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSettingsViewController.swift; sourceTree = "<group>"; };
 		3DBE9783232E8D0200077C36 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
-		3DE081E9232B5D85009D3680 /* ReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
 		616A107E7DB3435F92CDC917 /* ReadingChoicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChoicesView.swift; sourceTree = "<group>"; };
 		6635641105A040ADBC3C0F96 /* LegacyIntegrationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyIntegrationViews.swift; sourceTree = "<group>"; };
 		8A0B4F84B07D4438BF5E01BC /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
@@ -372,16 +362,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D43E9862350F6E6003C1F75 /* CustomNavigationBar.swift in Sources */,
-				3DA7D02E231CE1F00092A9F0 /* SpeedReadViewController.swift in Sources */,
 				3D729AB9235427B800E64731 /* ChoicesCell.swift in Sources */,
-				3DB891952371DADD001CCAA4 /* SpeechSettingsViewController.swift in Sources */,
 				3D497C6B2339B7A800437B97 /* Colors.swift in Sources */,
-				3D8FF23723174F1700E51F09 /* SpeechViewController.swift in Sources */,
 				3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */,
 				3D8FF2392318AA4E00E51F09 /* ScanViewController.swift in Sources */,
-				3D8D3667234EC554001DFFA8 /* SpeechRecognizerViewController.swift in Sources */,
 				3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */,
-				3DE081EA232B5D85009D3680 /* ReadViewController.swift in Sources */,
 				3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */,
 				3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */,
 				DC2105B52DC5434EA9E9C7F3 /* ReaderApp.swift in Sources */,

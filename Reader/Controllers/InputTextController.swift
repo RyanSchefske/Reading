@@ -11,7 +11,7 @@ import Vision
 import AVFoundation
 import GoogleMobileAds
 
-class InputTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class InputTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, ScanViewControllerDelegate, SpeechRecognizerViewControllerDelegate {
     
     var image: UIImage? = nil
     var contentString = String()
@@ -290,12 +290,16 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
     
     @objc private func speak() {
         saveContent()
-        navigationController?.pushViewController(SpeechRecognizerViewController(), animated: true)
+        let speechController = SpeechRecognizerViewController()
+        speechController.delegate = self
+        navigationController?.pushViewController(speechController, animated: true)
     }
     
     @objc private func scan() {
         saveContent()
-        navigationController?.pushViewController(ScanViewController(), animated: true)
+        let scanController = ScanViewController()
+        scanController.delegate = self
+        navigationController?.pushViewController(scanController, animated: true)
     }
     
     @objc private func read() {
@@ -373,5 +377,27 @@ extension UIDevice {
             return top > 0
         }
         return false
+    }
+}
+
+extension InputTextController {
+    func scanViewController(_ controller: ScanViewController, didCapture image: UIImage) {
+        self.image = image
+        recognizeText()
+        navigationController?.popViewController(animated: true)
+    }
+
+    func speechRecognizerViewController(_ controller: SpeechRecognizerViewController, didFinishWith text: String) {
+        let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return }
+
+        if self.textLabel.text == "Type, paste, or select a button below to begin!" || self.textLabel.textColor == .lightGray {
+            self.contentString = trimmed
+            self.textLabel.text = trimmed
+            self.textLabel.textColor = .black
+        } else {
+            self.contentString = self.textLabel.text + " " + trimmed
+            self.textLabel.text = self.contentString
+        }
     }
 }

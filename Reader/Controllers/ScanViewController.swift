@@ -9,7 +9,13 @@
 import UIKit
 import WeScan
 
+protocol ScanViewControllerDelegate: AnyObject {
+    func scanViewController(_ controller: ScanViewController, didCapture image: UIImage)
+}
+
 class ScanViewController: UIViewController, ImageScannerControllerDelegate {
+    
+    weak var delegate: ScanViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,20 +33,26 @@ class ScanViewController: UIViewController, ImageScannerControllerDelegate {
     }
     
     func imageScannerController(_ scanner: ImageScannerController, didFinishScanningWithResults results: ImageScannerResults) {
-        scanner.dismiss(animated: true) {
-            
+        scanner.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+
+            let chosenImage: UIImage?
+
             if results.doesUserPreferEnhancedImage {
-                if let imageResults = results.enhancedImage {
-                    if let vc = self.navigationController?.viewControllers[0] as? InputTextController {
-                        vc.image = imageResults
-                        self.navigationController?.popToRootViewController(animated: true)
-                    }
-                }
+                chosenImage = results.enhancedImage
             } else {
-                if let vc = self.navigationController?.viewControllers[0] as? InputTextController {
-                    vc.image = results.scannedImage
-                    self.navigationController?.popToRootViewController(animated: true)
+                chosenImage = results.scannedImage
+            }
+
+            guard let image = chosenImage else { return }
+
+            if let delegate = self.delegate {
+                DispatchQueue.main.async {
+                    delegate.scanViewController(self, didCapture: image)
                 }
+            } else if let inputController = self.navigationController?.viewControllers.first as? InputTextController {
+                inputController.image = image
+                self.navigationController?.popToRootViewController(animated: true)
             }
         }
     }

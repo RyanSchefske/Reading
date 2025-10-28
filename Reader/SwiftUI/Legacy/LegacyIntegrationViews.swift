@@ -4,103 +4,12 @@
 //
 //  Created by GPT Coding Assistant on 11/3/25.
 //
+//  Legacy UIKit wrappers for features that still require UIKit integration.
+//  All reading modes have been migrated to native SwiftUI.
+//
 
 import SwiftUI
 import UIKit
-
-// MARK: - Speech Recognizer
-
-struct LegacySpeechRecognizerView: UIViewControllerRepresentable {
-
-    let onFinish: (String) -> Void
-    @Environment(\.dismiss) private var dismiss
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(onFinish: onFinish, onDismiss: { dismiss() })
-    }
-
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let controller = SpeechRecognizerViewController()
-        controller.delegate = context.coordinator
-        return UINavigationController(rootViewController: controller)
-    }
-
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) { }
-
-    final class Coordinator: NSObject, SpeechRecognizerViewControllerDelegate {
-        private let onFinish: (String) -> Void
-        private let onDismiss: () -> Void
-
-        init(onFinish: @escaping (String) -> Void, onDismiss: @escaping () -> Void) {
-            self.onFinish = onFinish
-            self.onDismiss = onDismiss
-        }
-
-        func speechRecognizerViewController(_ controller: SpeechRecognizerViewController, didFinishWith text: String) {
-            onFinish(text)
-            onDismiss()
-        }
-    }
-}
-
-// MARK: - Reading Modes
-
-struct LegacySpeechView: UIViewControllerRepresentable {
-    let readingText: String
-
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let controller = SpeechViewController()
-        controller.readingText = readingText
-        return UINavigationController(rootViewController: controller)
-    }
-
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        guard
-            let controller = uiViewController.viewControllers.first as? SpeechViewController,
-            controller.readingText != readingText
-        else { return }
-
-        controller.readingText = readingText
-    }
-}
-
-struct LegacySpeedReadView: UIViewControllerRepresentable {
-    let readingText: String
-
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let controller = SpeedReadViewController()
-        controller.readingText = readingText
-        return UINavigationController(rootViewController: controller)
-    }
-
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        guard
-            let controller = uiViewController.viewControllers.first as? SpeedReadViewController,
-            controller.readingText != readingText
-        else { return }
-
-        controller.readingText = readingText
-    }
-}
-
-struct LegacyScrollReadView: UIViewControllerRepresentable {
-    let readingText: String
-
-    func makeUIViewController(context: Context) -> UINavigationController {
-        let controller = ReadViewController()
-        controller.readingText = readingText
-        return UINavigationController(rootViewController: controller)
-    }
-
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
-        guard
-            let controller = uiViewController.viewControllers.first as? ReadViewController,
-            controller.readingText != readingText
-        else { return }
-
-        controller.readingText = readingText
-    }
-}
 
 // MARK: - Scan
 
