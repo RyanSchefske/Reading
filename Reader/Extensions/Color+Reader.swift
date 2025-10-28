@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Color {
-    static let readerBackground = Color(UIColor(Colors().offWhite))
-    static let readerAccent = Color(UIColor(Colors().buttonColor))
+    static let readerBackground = Colors().offWhite
+    static let readerAccent = Colors().buttonColor
 }
 

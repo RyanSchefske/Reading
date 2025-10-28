@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B67FD90A36F4D9CAC61CE81 /* UIApplication+Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C32CE8C53411BAB42A269 /* UIApplication+Reader.swift */; };
 		299E49D1A611499CA2F8709C /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7423BC2BE4CE380915CCA /* SettingsRepository.swift */; };
+		9C3E820A0A8B4F9FADCDB7C3 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3E820A0A8B4F9FADCDB7C2 /* AppError.swift */; };
 		3D35DAF6236DEC40005D7170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */; };
 		3D43E9862350F6E6003C1F75 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */; };
 		3D497C6B2339B7A800437B97 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D497C6A2339B7A800437B97 /* Colors.swift */; };
@@ -60,6 +61,7 @@
 /* Begin PBXFileReference section */
 		0A63C32C972441F6B7E34CC2 /* InputTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextViewModel.swift; sourceTree = "<group>"; };
 		1BE624BE9F0C49AC966BB42B /* ReaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderApp.swift; sourceTree = "<group>"; };
+		9C3E820A0A8B4F9FADCDB7C2 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		2AA65668E6734DB5AE3C9D9D /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
@@ -336,6 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C3E820A0A8B4F9FADCDB7C3 /* AppError.swift in Sources */,
 				3D43E9862350F6E6003C1F75 /* CustomNavigationBar.swift in Sources */,
 				3D729AB9235427B800E64731 /* ChoicesCell.swift in Sources */,
 				3D497C6B2339B7A800437B97 /* Colors.swift in Sources */,
