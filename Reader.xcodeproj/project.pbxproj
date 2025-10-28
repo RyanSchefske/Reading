@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,10 @@
 		3D35DAF6236DEC40005D7170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */; };
 		3D43E9862350F6E6003C1F75 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */; };
 		3D497C6B2339B7A800437B97 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D497C6A2339B7A800437B97 /* Colors.swift */; };
+		3D5029342EB05678005F7731 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029332EB05678005F7731 /* FirebaseCore */; };
+		3D5029362EB05678005F7731 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029352EB05678005F7731 /* FirebaseFirestore */; };
+		3D5029392EB056A8005F7731 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029382EB056A8005F7731 /* GoogleMobileAds */; };
+		3D50293C2EB056DC005F7731 /* WeScan in Frameworks */ = {isa = PBXBuildFile; productRef = 3D50293B2EB056DC005F7731 /* WeScan */; };
 		3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */; };
 		3D729AB9235427B800E64731 /* ChoicesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D729AB8235427B800E64731 /* ChoicesCell.swift */; };
 		3D8D3667234EC554001DFFA8 /* SpeechRecognizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */; };
@@ -24,7 +28,6 @@
 		3DB891952371DADD001CCAA4 /* SpeechSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */; };
 		3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9783232E8D0200077C36 /* CustomButton.swift */; };
 		3DE081EA232B5D85009D3680 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE081E9232B5D85009D3680 /* ReadViewController.swift */; };
-		B2C8D69CFDBF3027D84BC811 /* Pods_Reader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 531830F23B850379CA43C99C /* Pods_Reader.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -60,9 +63,6 @@
 		3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSettingsViewController.swift; sourceTree = "<group>"; };
 		3DBE9783232E8D0200077C36 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		3DE081E9232B5D85009D3680 /* ReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
-		531830F23B850379CA43C99C /* Pods_Reader.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reader.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		590479781060737383D8E1F2 /* Pods-Reader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reader.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reader/Pods-Reader.release.xcconfig"; sourceTree = "<group>"; };
-		B79ECB19762986EEC5F66A4F /* Pods-Reader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reader.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reader/Pods-Reader.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,7 +70,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2C8D69CFDBF3027D84BC811 /* Pods_Reader.framework in Frameworks */,
+				3D5029392EB056A8005F7731 /* GoogleMobileAds in Frameworks */,
+				3D5029342EB05678005F7731 /* FirebaseCore in Frameworks */,
+				3D5029362EB05678005F7731 /* FirebaseFirestore in Frameworks */,
+				3D50293C2EB056DC005F7731 /* WeScan in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,7 +137,6 @@
 			children = (
 				3D8FF22323174EA300E51F09 /* Reader */,
 				3D8FF22223174EA300E51F09 /* Products */,
-				BE1BB49F5D6CE76F606D3927 /* Pods */,
 				9A96179DFF58E9938F7F8C26 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -163,18 +165,8 @@
 		9A96179DFF58E9938F7F8C26 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				531830F23B850379CA43C99C /* Pods_Reader.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BE1BB49F5D6CE76F606D3927 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				B79ECB19762986EEC5F66A4F /* Pods-Reader.debug.xcconfig */,
-				590479781060737383D8E1F2 /* Pods-Reader.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,12 +176,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D8FF23323174EA400E51F09 /* Build configuration list for PBXNativeTarget "Reader" */;
 			buildPhases = (
-				4D3EF07F75C5C43FD2CB0D72 /* [CP] Check Pods Manifest.lock */,
 				3D8FF21D23174EA300E51F09 /* Sources */,
 				3D8FF21E23174EA300E51F09 /* Frameworks */,
 				3D8FF21F23174EA300E51F09 /* Resources */,
-				BC11F0092DBA10442B164E2E /* [CP] Embed Pods Frameworks */,
-				6682EF556AE054D3699A12BF /* [CP] Copy Pods Resources */,
 				3DE0EA20234C0E0400990D37 /* Embed Frameworks */,
 			);
 			buildRules = (
@@ -225,6 +214,11 @@
 				Base,
 			);
 			mainGroup = 3D8FF21823174EA300E51F09;
+			packageReferences = (
+				3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3D5029372EB056A8005F7731 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				3D50293A2EB056DC005F7731 /* XCRemoteSwiftPackageReference "WeScan" */,
+			);
 			productRefGroup = 3D8FF22223174EA300E51F09 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -246,61 +240,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4D3EF07F75C5C43FD2CB0D72 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Reader-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6682EF556AE054D3699A12BF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BC11F0092DBA10442B164E2E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Reader/Pods-Reader-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3D8FF21D23174EA300E51F09 /* Sources */ = {
@@ -456,7 +395,6 @@
 		};
 		3D8FF23423174EA400E51F09 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B79ECB19762986EEC5F66A4F /* Pods-Reader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -477,7 +415,6 @@
 		};
 		3D8FF23523174EA400E51F09 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 590479781060737383D8E1F2 /* Pods-Reader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -518,6 +455,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.4.0;
+			};
+		};
+		3D5029372EB056A8005F7731 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.12.0;
+			};
+		};
+		3D50293A2EB056DC005F7731 /* XCRemoteSwiftPackageReference "WeScan" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WeTransfer/WeScan";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3D5029332EB05678005F7731 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		3D5029352EB05678005F7731 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		3D5029382EB056A8005F7731 /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D5029372EB056A8005F7731 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+		3D50293B2EB056DC005F7731 /* WeScan */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D50293A2EB056DC005F7731 /* XCRemoteSwiftPackageReference "WeScan" */;
+			productName = WeScan;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D8FF21923174EA300E51F09 /* Project object */;
 }
