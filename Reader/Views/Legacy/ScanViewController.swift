@@ -38,19 +38,19 @@ class ScanViewController: UIViewController, ImageScannerControllerDelegate {
 
             let chosenImage: UIImage?
 
-            if results.doesUserPreferEnhancedImage {
-                chosenImage = results.enhancedImage
-            } else {
-                chosenImage = results.scannedImage
-            }
+//            if results.doesUserPreferEnhancedImage {
+//                chosenImage = results.enhancedImage
+//            } else {
+//                chosenImage = results.scannedImage
+//            }
 
-            guard let image = chosenImage else { return }
+//            guard let image = chosenImage else { return }
 
-            if let delegate = self.delegate {
-                DispatchQueue.main.async {
-                    delegate.scanViewController(self, didCapture: image)
-                }
-            }
+//            if let delegate = self.delegate {
+//                DispatchQueue.main.async {
+//                    delegate.scanViewController(self, didCapture: image)
+//                }
+//            }
         }
     }
     

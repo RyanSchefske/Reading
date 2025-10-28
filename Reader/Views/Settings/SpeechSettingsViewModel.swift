@@ -23,7 +23,7 @@ final class SpeechSettingsViewModel: ObservableObject {
 
     // MARK: - Private Properties
 
-    private let settingsRepository: SettingsRepositoryProtocol
+    private var settingsRepository: SettingsRepositoryProtocol
 
     // MARK: - Voice Option
 

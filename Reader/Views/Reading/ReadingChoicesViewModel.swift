@@ -70,7 +70,7 @@ final class ReadingChoicesViewModel: ObservableObject {
     // MARK: - Dependencies
 
     let readingText: String
-    private let settingsRepository: SettingsRepositoryProtocol
+    private var settingsRepository: SettingsRepositoryProtocol
 
     // MARK: - Private State
 

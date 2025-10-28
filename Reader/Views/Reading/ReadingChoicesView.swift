@@ -29,7 +29,8 @@ struct ReadingChoicesView: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 24)
         }
-        .background(Color.readerBackground.ignoresSafeArea())
+        .background(Color.readerBackground)
+        .ignoresSafeArea()
         .navigationTitle("Choices")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {

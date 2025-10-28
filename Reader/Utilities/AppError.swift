@@ -6,7 +6,7 @@
 //  Copyright © 2024 Ryan Schefske. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// Application-specific errors with localized descriptions
 ///

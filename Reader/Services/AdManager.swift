@@ -123,7 +123,7 @@ final class AdManager: NSObject {
         let adUnitID = testMode ? AdUnitIDs.testInterstitial : AdUnitIDs.interstitial
 
         InterstitialAd.load(
-            withAdUnitID: adUnitID,
+            with: adUnitID,
             request: Request()
         ) { [weak self] ad, error in
             guard let self = self else { return }
@@ -156,7 +156,7 @@ final class AdManager: NSObject {
             return false
         }
 
-        interstitialAd.present(fromRootViewController: viewController)
+        interstitialAd.present(from: viewController)
         return true
     }
 }

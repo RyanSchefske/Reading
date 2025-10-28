@@ -26,18 +26,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Analytics.setAnalyticsCollectionEnabled(true)
 
         // Initialize the Google Mobile Ads SDK
-        GADMobileAds.sharedInstance().start(completionHandler: nil)
+//        GADMobileAds.sharedInstance().start(completionHandler: nil)
 
         UINavigationBar.appearance().isTranslucent = true
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().barTintColor = Colors().offWhite
-        UINavigationBar.appearance().titleTextAttributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25) ?? UIFont.systemFont(ofSize: 25)
-        ]
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().backgroundColor = .clear
+//        UINavigationBar.appearance().tintColor = .white
+//        UINavigationBar.appearance().barTintColor = Color.offWhite
+//        UINavigationBar.appearance().titleTextAttributes = [
+//            NSAttributedString.Key.foregroundColor: UIColor.white,
+//            NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25) ?? UIFont.systemFont(ofSize: 25)
+//        ]
+//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+//        UINavigationBar.appearance().shadowImage = UIImage()
+//        UINavigationBar.appearance().backgroundColor = .clear
 
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
