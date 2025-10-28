@@ -10,8 +10,8 @@ import UIKit
 import AVFoundation
 import GoogleMobileAds
 
-class SpeechViewController: UIViewController, AVSpeechSynthesizerDelegate, GADBannerViewDelegate {
-    
+class SpeechViewController: UIViewController, AVSpeechSynthesizerDelegate {
+
     var readingText = String()
     var customNav = UIImageView()
     var textView = UITextView()
@@ -20,7 +20,6 @@ class SpeechViewController: UIViewController, AVSpeechSynthesizerDelegate, GADBa
     let synthesizer = AVSpeechSynthesizer()
     var speechIdentifier = String()
     var speechRate = Float()
-    var bannerView = GADBannerView()
     
     var strokeTextAttributes = [NSAttributedString.Key : Any]()
     
@@ -89,13 +88,10 @@ class SpeechViewController: UIViewController, AVSpeechSynthesizerDelegate, GADBa
         let currHeight = settingsBarItem.customView?.heightAnchor.constraint(equalToConstant: 25)
         currHeight?.isActive = true
         navigationItem.rightBarButtonItem = settingsBarItem
-        
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        bannerView.adUnitID = "ca-app-pub-2392719817363402/9276402219"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
-        
+
+        // Add banner ad using AdManager
+        AdManager.shared.addBannerToView(view, viewController: self)
+
         customNav = {
             let image = UIImageView(frame: CGRect(x: -2, y: -2, width: view.frame.width + 4, height: view.frame.height / 8))
             image.image = UIImage(named: "customNavBar")?.withRenderingMode(.alwaysTemplate)
@@ -217,11 +213,7 @@ class SpeechViewController: UIViewController, AVSpeechSynthesizerDelegate, GADBa
         speakButton.setTitle("Speak", for: .normal)
         speak()
     }
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        view.addBannerViewToView(bannerView, view)
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if self.isMovingFromParent {

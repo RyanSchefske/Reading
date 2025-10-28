@@ -7,11 +7,11 @@
 //
 
 import UIKit
-import FirebaseMLVision
+import Vision
 import AVFoundation
 import GoogleMobileAds
 
-class InputTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate, GADBannerViewDelegate {
+class InputTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     
     var image: UIImage? = nil
     var contentString = String()
@@ -23,7 +23,6 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
     var speakButton = CustomButton()
     var nextButton = UIButton()
     var bgView = UIView()
-    var bannerView = GADBannerView()
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,13 +68,10 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
         
         view.backgroundColor = Colors().offWhite
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        bannerView.adUnitID = "ca-app-pub-2392719817363402/9276402219"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
-        
+
+        // Add banner ad using AdManager
+        AdManager.shared.addBannerToView(view, viewController: self)
+
         customNav = {
             let image = UIImageView(frame: CGRect(x: -2, y: -2, width: view.frame.width + 4, height: view.frame.height / 8))
             image.image = UIImage(named: "customNavBar")?.withRenderingMode(.alwaysTemplate)
@@ -224,24 +220,69 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
     }
     
     func recognizeText() {
-        let vision = Vision.vision()
-        let textRecognizer = vision.onDeviceTextRecognizer()
-        
-        if let imageResult = image {
-            let visionImage = VisionImage(image: imageResult)
-            
-            textRecognizer.process(visionImage) { (result, error) in
-                guard error == nil, let result = result else {
+        guard let imageResult = image,
+              let cgImage = imageResult.cgImage else {
+            showError(AppError.invalidImage)
+            return
+        }
+
+        // Create text recognition request
+        let request = VNRecognizeTextRequest { [weak self] request, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                print("Text recognition error: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.showError(AppError.textRecognitionFailed)
+                }
+                return
+            }
+
+            guard let observations = request.results as? [VNRecognizedTextObservation] else {
+                DispatchQueue.main.async {
+                    self.showError(AppError.noTextFound)
+                }
+                return
+            }
+
+            // Extract text from observations
+            let recognizedText = observations.compactMap { observation in
+                observation.topCandidates(1).first?.string
+            }.joined(separator: "\n")
+
+            // Update UI on main thread
+            DispatchQueue.main.async {
+                if recognizedText.isEmpty {
+                    self.showError(AppError.noTextFound)
                     return
                 }
-                
+
                 if self.textLabel.text != "Type, paste, or select a button below to begin!" {
-                    self.contentString = self.textLabel.text + result.text
+                    self.contentString = self.textLabel.text + "\n" + recognizedText
                     self.textLabel.text = self.contentString
                 } else {
-                    self.contentString = result.text
+                    self.contentString = recognizedText
                     self.textLabel.text = self.contentString
                     self.textLabel.textColor = .black
+                }
+            }
+        }
+
+        // Configure request for best accuracy
+        request.recognitionLevel = .accurate
+        request.usesLanguageCorrection = true
+        request.recognitionLanguages = ["en-US"]
+
+        // Perform request on background thread
+        let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try handler.perform([request])
+            } catch {
+                print("Failed to perform text recognition: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.showError(AppError.textRecognitionFailed)
                 }
             }
         }
@@ -322,15 +363,15 @@ class InputTextController: UIViewController, UIImagePickerControllerDelegate, UI
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        view.addBannerViewToView(bannerView, view)
-    }
 }
 
 extension UIDevice {
     var hasNotch: Bool {
-        let top = UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 0
-        return top > 0
+        // Fixed deprecated UIApplication.shared.keyWindow
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            let top = windowScene.windows.first?.safeAreaInsets.top ?? 0
+            return top > 0
+        }
+        return false
     }
 }

@@ -10,14 +10,13 @@ import UIKit
 import Speech
 import GoogleMobileAds
 
-class SpeechRecognizerViewController: UIViewController, GADBannerViewDelegate {
-    
+class SpeechRecognizerViewController: UIViewController {
+
     private var speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
     private var audioEngine = AVAudioEngine()
     private var customNav = UIImageView()
-    private var bannerView = GADBannerView()
     
     let startStopButton: UIButton = {
         let button = UIButton()
@@ -106,12 +105,9 @@ class SpeechRecognizerViewController: UIViewController, GADBannerViewDelegate {
         doneButton.heightAnchor.constraint(equalToConstant: view.frame.height / 12).isActive = true
         doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         doneButton.titleLabel?.textAlignment = .center
-        
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        bannerView.adUnitID = "ca-app-pub-2392719817363402/9276402219"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
+
+        // Add banner ad using AdManager
+        AdManager.shared.addBannerToView(view, viewController: self)
     }
     
     private func customNavBar() {
@@ -258,9 +254,5 @@ class SpeechRecognizerViewController: UIViewController, GADBannerViewDelegate {
         } else {
             startStopButton.isEnabled = false
         }
-    }
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        view.addBannerViewToView(bannerView, view)
     }
 }

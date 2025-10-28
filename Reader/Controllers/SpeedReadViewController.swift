@@ -9,8 +9,8 @@
 import UIKit
 import GoogleMobileAds
 
-class SpeedReadViewController: UIViewController, GADBannerViewDelegate {
-    
+class SpeedReadViewController: UIViewController {
+
     var customNav = UIImageView()
     var readingText = String()
     var words: [String] = []
@@ -21,7 +21,6 @@ class SpeedReadViewController: UIViewController, GADBannerViewDelegate {
     var sliderLabel = UILabel()
     var pauseButton = UIButton()
     var buttonView = UIView()
-    var bannerView = GADBannerView()
     var counter = 0
     
     override func viewDidLoad() {
@@ -33,15 +32,13 @@ class SpeedReadViewController: UIViewController, GADBannerViewDelegate {
     func setup() {
         view.backgroundColor = Colors().offWhite
         navigationItem.titleView = CustomNavigationBar().customTitle(title: "Speed Read")
-        
+
         readingText = readingText.replacingOccurrences(of: "\n", with: " ")
-        
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        bannerView.adUnitID = "ca-app-pub-2392719817363402/9276402219"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
-        
+
+        // Add banner ad using AdManager
+        AdManager.shared.addBannerToView(view, viewController: self)
+
+
         customNav = {
             let image = UIImageView(frame: CGRect(x: -2, y: -2, width: view.frame.width + 4, height: view.frame.height / 8))
             image.image = UIImage(named: "customNavBar")?.withRenderingMode(.alwaysTemplate)
@@ -227,9 +224,5 @@ class SpeedReadViewController: UIViewController, GADBannerViewDelegate {
             pauseButton.setImage(UIImage(named: "play"), for: .normal)
             slider.isEnabled = true
         }
-    }
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        view.addBannerViewToView(bannerView, view)
     }
 }

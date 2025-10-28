@@ -9,13 +9,11 @@
 import UIKit
 import GoogleMobileAds
 
-class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, GADBannerViewDelegate, GADInterstitialDelegate {
-    
+class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+
     private var customNav = UIImageView()
     private var choicesCV = UICollectionView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: UICollectionViewFlowLayout())
     var readingText = String()
-    private var bannerView = GADBannerView()
-    var interstitial: GADInterstitial!
     var clicks = 0
     
     override func viewDidLoad() {
@@ -25,7 +23,8 @@ class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        interstitial = createAndLoadInterstitial()
+        // Load interstitial ad for later use
+        AdManager.shared.loadInterstitial()
         clicks = UserDefaults.standard.integer(forKey: "clicks")
     }
     
@@ -71,12 +70,9 @@ class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, 
         choicesCV.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         choicesCV.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         choicesCV.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        bannerView.adUnitID = "ca-app-pub-2392719817363402/9276402219"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
+
+        // Add banner ad using AdManager
+        AdManager.shared.addBannerToView(view, viewController: self)
     }
     
     @objc private func speedClicked() {
@@ -124,13 +120,12 @@ class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+
+        // Show interstitial ad every 2 clicks
         if clicks % 2 == 0 {
-            if interstitial.isReady {
-                interstitial.present(fromRootViewController: self)
-            }
+            AdManager.shared.showInterstitial(from: self)
         }
-        
+
         clicks += 1
         UserDefaults.standard.set(clicks, forKey: "clicks")
         
@@ -147,20 +142,5 @@ class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, 
             vc.readingText = readingText
             navigationController?.pushViewController(vc, animated: true)
         }
-    }
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        view.addBannerViewToView(bannerView, view)
-    }
-    
-    func createAndLoadInterstitial() -> GADInterstitial {
-        let interstitial = GADInterstitial(adUnitID: "ca-app-pub-2392719817363402/6341211139")
-        interstitial.delegate = self
-        interstitial.load(GADRequest())
-        return interstitial
-    }
-    
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        interstitial = createAndLoadInterstitial()
     }
 }

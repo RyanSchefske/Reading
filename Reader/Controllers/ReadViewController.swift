@@ -9,8 +9,8 @@
 import UIKit
 import GoogleMobileAds
 
-class ReadViewController: UIViewController, GADBannerViewDelegate {
-    
+class ReadViewController: UIViewController {
+
     var customNav = UIImageView()
     var slider = UISlider()
     var sliderLabel = UILabel()
@@ -18,7 +18,6 @@ class ReadViewController: UIViewController, GADBannerViewDelegate {
     var readingLabel = UILabel()
     var pauseButton = UIButton()
     var readingText = String()
-    var bannerView = GADBannerView()
     
     var started = false
     var paused = false
@@ -32,15 +31,12 @@ class ReadViewController: UIViewController, GADBannerViewDelegate {
     func setup() {
         view.backgroundColor = Colors().offWhite
         navigationItem.titleView = CustomNavigationBar().customTitle(title: "Read")
-        
+
         readingText = readingText.replacingOccurrences(of: "\n", with: " ")
-        
-        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
-        bannerView.adUnitID = "ca-app-pub-2392719817363402/9276402219"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
-        
+
+        // Add banner ad using AdManager
+        AdManager.shared.addBannerToView(view, viewController: self)
+
         customNav = {
             let image = UIImageView(frame: CGRect(x: -2, y: -2, width: view.frame.width + 4, height: view.frame.height / 8))
             image.image = UIImage(named: "customNavBar")?.withRenderingMode(.alwaysTemplate)
@@ -178,10 +174,6 @@ class ReadViewController: UIViewController, GADBannerViewDelegate {
                 self.pauseButton.setTitle("Pause", for: .normal)
             }
         }
-    }
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        view.addBannerViewToView(bannerView, view)
     }
 }
 

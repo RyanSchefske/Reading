@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseCore
+import FirebaseAnalytics
+import GoogleMobileAds
 import AVFoundation
 
 @UIApplicationMain
@@ -22,9 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = UINavigationController(rootViewController: InputTextController())
         
-        // Use Firebase library to configure APIs.
+        // Configure Firebase
         FirebaseApp.configure()
-        // Initialize the Google Mobile Ads SDK.
+
+        // Enable Firebase Analytics
+        Analytics.setAnalyticsCollectionEnabled(true)
+
+        // Initialize the Google Mobile Ads SDK
         GADMobileAds.sharedInstance().start(completionHandler: nil)
         
         UINavigationBar.appearance().isTranslucent = true
