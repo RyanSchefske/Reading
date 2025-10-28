@@ -89,8 +89,10 @@ struct InputTextView: View {
             }
         }
         .sheet(isPresented: $isShowingSpeechRecognizer) {
-            LegacySpeechRecognizerView { text in
-                viewModel.applyRecognizedText(text)
+            NavigationStack {
+                SpeechRecognizerView { text in
+                    viewModel.applyRecognizedText(text)
+                }
             }
         }
         .background(

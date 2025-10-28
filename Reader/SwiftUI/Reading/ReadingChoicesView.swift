@@ -53,20 +53,11 @@ struct ReadingChoicesView: View {
         .navigationDestination(item: $viewModel.navigationDestination) { destination in
             switch destination {
             case .speak:
-                LegacySpeechView(readingText: viewModel.readingText)
-                    .navigationTitle("Speak")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar(.hidden, for: .navigationBar)
+                SpeechReadingView(readingText: viewModel.readingText)
             case .speed:
-                LegacySpeedReadView(readingText: viewModel.readingText)
-                    .navigationTitle("Speed Read")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar(.hidden, for: .navigationBar)
+                SpeedReadingView(readingText: viewModel.readingText)
             case .scroll:
-                LegacyScrollReadView(readingText: viewModel.readingText)
-                    .navigationTitle("Scroll")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar(.hidden, for: .navigationBar)
+                ScrollReadingView(readingText: viewModel.readingText)
             }
         }
     }
