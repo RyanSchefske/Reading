@@ -49,7 +49,7 @@ final class AdManager: NSObject {
     #endif
 
     /// Currently loaded interstitial ad
-    private var interstitialAd: GADInterstitialAd?
+    private var interstitialAd: InterstitialAd?
 
     /// Track if interstitial is loading to prevent duplicate requests
     private var isLoadingInterstitial = false
@@ -67,12 +67,12 @@ final class AdManager: NSObject {
     /// - Parameters:
     ///   - viewController: The view controller that will present the ad
     ///   - delegate: Optional custom delegate for banner events
-    /// - Returns: Configured GADBannerView ready to be added to view hierarchy
+    /// - Returns: Configured BannerView ready to be added to view hierarchy
     func createBannerView(
         for viewController: UIViewController,
-        delegate: GADBannerViewDelegate? = nil
-    ) -> GADBannerView {
-        let bannerView = GADBannerView(adSize: GADAdSizeBanner)
+        delegate: BannerViewDelegate? = nil
+    ) -> BannerView {
+        let bannerView = BannerView(adSize: AdSizeBanner)
         bannerView.adUnitID = testMode ? AdUnitIDs.testBanner : AdUnitIDs.banner
         bannerView.rootViewController = viewController
         bannerView.delegate = delegate ?? self
@@ -88,7 +88,7 @@ final class AdManager: NSObject {
     func addBannerToView(
         _ view: UIView,
         viewController: UIViewController,
-        delegate: GADBannerViewDelegate? = nil
+        delegate: BannerViewDelegate? = nil
     ) {
         let bannerView = createBannerView(for: viewController, delegate: delegate)
 
@@ -103,7 +103,7 @@ final class AdManager: NSObject {
         ])
 
         // Load ad
-        bannerView.load(GADRequest())
+        bannerView.load(Request())
     }
 
     // MARK: - Interstitial Ads
@@ -122,9 +122,9 @@ final class AdManager: NSObject {
 
         let adUnitID = testMode ? AdUnitIDs.testInterstitial : AdUnitIDs.interstitial
 
-        GADInterstitialAd.load(
+        InterstitialAd.load(
             withAdUnitID: adUnitID,
-            request: GADRequest()
+            request: Request()
         ) { [weak self] ad, error in
             guard let self = self else { return }
 
@@ -161,62 +161,62 @@ final class AdManager: NSObject {
     }
 }
 
-// MARK: - GADBannerViewDelegate
+// MARK: - BannerViewDelegate
 
-extension AdManager: GADBannerViewDelegate {
+extension AdManager: BannerViewDelegate {
 
-    func bannerViewDidReceiveAd(_ bannerView: GADBannerView) {
+    func bannerViewDidReceiveAd(_ bannerView: BannerView) {
         print("✅ Banner ad loaded successfully")
     }
 
-    func bannerView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: Error) {
+    func bannerView(_ bannerView: BannerView, didFailToReceiveAdWithError error: Error) {
         print("❌ Banner ad failed to load: \(error.localizedDescription)")
     }
 
-    func bannerViewDidRecordImpression(_ bannerView: GADBannerView) {
+    func bannerViewDidRecordImpression(_ bannerView: BannerView) {
         print("📊 Banner ad impression recorded")
     }
 
-    func bannerViewWillPresentScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillPresentScreen(_ bannerView: BannerView) {
         print("📱 Banner ad will present screen")
     }
 
-    func bannerViewWillDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewWillDismissScreen(_ bannerView: BannerView) {
         print("📱 Banner ad will dismiss screen")
     }
 
-    func bannerViewDidDismissScreen(_ bannerView: GADBannerView) {
+    func bannerViewDidDismissScreen(_ bannerView: BannerView) {
         print("📱 Banner ad dismissed screen")
     }
 }
 
-// MARK: - GADFullScreenContentDelegate
+// MARK: - FullScreenContentDelegate
 
-extension AdManager: GADFullScreenContentDelegate {
+extension AdManager: FullScreenContentDelegate {
 
-    func adDidRecordImpression(_ ad: GADFullScreenPresentingAd) {
+    func adDidRecordImpression(_ ad: FullScreenPresentingAd) {
         print("📊 Interstitial ad impression recorded")
     }
 
-    func adDidRecordClick(_ ad: GADFullScreenPresentingAd) {
+    func adDidRecordClick(_ ad: FullScreenPresentingAd) {
         print("👆 Interstitial ad clicked")
     }
 
-    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+    func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
         print("❌ Interstitial ad failed to present: \(error.localizedDescription)")
         // Load a new ad for next time
         loadInterstitial()
     }
 
-    func adWillPresentFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adWillPresentFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("📱 Interstitial ad will present")
     }
 
-    func adWillDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adWillDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("📱 Interstitial ad will dismiss")
     }
 
-    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+    func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
         print("📱 Interstitial ad dismissed")
         // Clear the ad and load a new one for next time
         interstitialAd = nil
