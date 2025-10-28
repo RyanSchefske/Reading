@@ -108,20 +108,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		086F0B3DC07443F0AD47918C /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				1E1C370C13A245709E242842 /* DesignSystem */,
-				AAB2540557A54882B2B5B7FC /* Input */,
-				DFA8A402C56B4B51A6705EC3 /* Legacy */,
-				CED52ABDE2144BC2B9B95DCF /* Reading */,
-				8D58DCF73F334062A96FF640 /* Root */,
-				3DSWSET02EB06DEF005F7731 /* Settings */,
-				1BE624BE9F0C49AC966BB42B /* ReaderApp.swift */,
-			);
-			path = SwiftUI;
-			sourceTree = "<group>";
-		};
 		3DSWSET02EB06DEF005F7731 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,22 +117,16 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		1E1C370C13A245709E242842 /* DesignSystem */ = {
-			isa = PBXGroup;
-			children = (
-				EE602FD24FD8488C96D6BB0B /* Color+Reader.swift */,
-			);
-			path = DesignSystem;
-			sourceTree = "<group>";
-		};
 		3D35DAF2236DE8AD005D7170 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EE602FD24FD8488C96D6BB0B /* Color+Reader.swift */,
+				CC7C32CE8C53411BAB42A269 /* UIApplication+Reader.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		3D5448A3234ADB1E00B50888 /* SupportFiles */ = {
+		3D5448A3234ADB1E00B50888 /* Support */ = {
 			isa = PBXGroup;
 			children = (
 				3D8FF22423174EA300E51F09 /* AppDelegate.swift */,
@@ -154,21 +134,12 @@
 				3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */,
 				3D8FF22D23174EA400E51F09 /* LaunchScreen.storyboard */,
 			);
-			path = SupportFiles;
-			sourceTree = "<group>";
-		};
-		3D5448A4234ADB3A00B50888 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */,
-			);
-			path = Controllers;
+			path = Support;
 			sourceTree = "<group>";
 		};
 		3D5448A5234ADB5900B50888 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3D497C6A2339B7A800437B97 /* Colors.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -176,11 +147,25 @@
 		3D5448A6234ADB6A00B50888 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1BE624BE9F0C49AC966BB42B /* ReaderApp.swift */,
+				8D58DCF73F334062A96FF640 /* Root */,
+				AAB2540557A54882B2B5B7FC /* Input */,
+				CED52ABDE2144BC2B9B95DCF /* Reading */,
+				3DSWSET02EB06DEF005F7731 /* Settings */,
+				DFA8A402C56B4B51A6705EC3 /* Legacy */,
+				3DCOMP002EB06DEF005F7731 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3DCOMP002EB06DEF005F7731 /* Components */ = {
+			isa = PBXGroup;
+			children = (
 				3DBE9783232E8D0200077C36 /* CustomButton.swift */,
 				3D729AB8235427B800E64731 /* ChoicesCell.swift */,
 				3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */,
 			);
-			path = Views;
+			path = Components;
 			sourceTree = "<group>";
 		};
 		3D8FF21823174EA300E51F09 = {
@@ -203,12 +188,10 @@
 			isa = PBXGroup;
 			children = (
 				3D8FF23023174EA400E51F09 /* Info.plist */,
-				3D5448A3234ADB1E00B50888 /* SupportFiles */,
-				3D5448A4234ADB3A00B50888 /* Controllers */,
+				3D5448A3234ADB1E00B50888 /* Support */,
 				3D5448A5234ADB5900B50888 /* Models */,
 				3D5448A6234ADB6A00B50888 /* Views */,
 				85A40649A4B143C696BAB3F5 /* Services */,
-				086F0B3DC07443F0AD47918C /* SwiftUI */,
 				7A84D34D84614CC3935F8A1F /* Utilities */,
 				3D35DAF2236DE8AD005D7170 /* Extensions */,
 			);
@@ -218,7 +201,8 @@
 		7A84D34D84614CC3935F8A1F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				CC7C32CE8C53411BAB42A269 /* UIApplication+Reader.swift */,
+				9C3E820A0A8B4F9FADCDB7C2 /* AppError.swift */,
+				3D497C6A2339B7A800437B97 /* Colors.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -226,6 +210,7 @@
 		85A40649A4B143C696BAB3F5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				DEC7423BC2BE4CE380915CCA /* AdManager.swift */,
 				3DSR00002EB05ABC005F7731 /* SettingsRepository.swift */,
 			);
 			path = Services;
@@ -269,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				6635641105A040ADBC3C0F96 /* LegacyIntegrationViews.swift */,
+				3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */,
 			);
 			path = Legacy;
 			sourceTree = "<group>";
