@@ -36,7 +36,7 @@ class BaseCell: UICollectionViewCell {
         titleLabel = {
             let label = UILabel()
             label.text = "Read"
-            label.attributedText = NSMutableAttributedString(string: label.text!, attributes: strokeTextAttributes)
+            label.attributedText = NSMutableAttributedString(string: label.text ?? "Read", attributes: strokeTextAttributes)
             label.textAlignment = .center
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -138,7 +138,7 @@ class SpeedCell: BaseCell {
         if counter < words.count {
             if words[counter].count > 2 {
                 let range = NSRange(location:2,length:1)
-                let attributedString = NSMutableAttributedString(string: words[counter], attributes: [NSAttributedString.Key.font:UIFont(name: "Helvetica", size: 24)!])
+                let attributedString = NSMutableAttributedString(string: words[counter], attributes: [NSAttributedString.Key.font:UIFont(name: "Helvetica", size: 24) ?? UIFont.systemFont(ofSize: 24)])
                 attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: Colors().buttonColor, range: range)
                 readingLabel.attributedText = attributedString
             } else {

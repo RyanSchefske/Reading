@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B67FD90A36F4D9CAC61CE81 /* UIApplication+Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C32CE8C53411BAB42A269 /* UIApplication+Reader.swift */; };
+		299E49D1A611499CA2F8709C /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7423BC2BE4CE380915CCA /* SettingsRepository.swift */; };
 		3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08715F231F524D00CBD3AB /* InputTextController.swift */; };
-		3D35DAF4236DE8C9005D7170 /* UIView+Ads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D35DAF3236DE8C9005D7170 /* UIView+Ads.swift */; };
 		3D35DAF6236DEC40005D7170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */; };
 		3D43E9862350F6E6003C1F75 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */; };
 		3D497C6B2339B7A800437B97 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D497C6A2339B7A800437B97 /* Colors.swift */; };
@@ -16,8 +17,10 @@
 		3D5029362EB05678005F7731 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029352EB05678005F7731 /* FirebaseFirestore */; };
 		3D5029392EB056A8005F7731 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029382EB056A8005F7731 /* GoogleMobileAds */; };
 		3D50293C2EB056DC005F7731 /* WeScan in Frameworks */ = {isa = PBXBuildFile; productRef = 3D50293B2EB056DC005F7731 /* WeScan */; };
+		3D50293E2EB0599C005F7731 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3D50293D2EB0599C005F7731 /* FirebaseAnalytics */; };
 		3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */; };
 		3D729AB9235427B800E64731 /* ChoicesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D729AB8235427B800E64731 /* ChoicesCell.swift */; };
+		3DSR00012EB05ABC005F7731 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DSR00002EB05ABC005F7731 /* SettingsRepository.swift */; };
 		3D8D3667234EC554001DFFA8 /* SpeechRecognizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */; };
 		3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF22423174EA300E51F09 /* AppDelegate.swift */; };
 		3D8FF22C23174EA400E51F09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22B23174EA400E51F09 /* Assets.xcassets */; };
@@ -28,6 +31,14 @@
 		3DB891952371DADD001CCAA4 /* SpeechSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */; };
 		3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE9783232E8D0200077C36 /* CustomButton.swift */; };
 		3DE081EA232B5D85009D3680 /* ReadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE081E9232B5D85009D3680 /* ReadViewController.swift */; };
+		4E9AFED5D74B432DBCA80D1A /* ReadingChoicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616A107E7DB3435F92CDC917 /* ReadingChoicesView.swift */; };
+		649111EFE15741E68D2C52EB /* RootContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0B4F84B07D4438BF5E01BC /* RootContainerView.swift */; };
+		8CE9DB4651B9423FBA8459D0 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA65668E6734DB5AE3C9D9D /* InputTextView.swift */; };
+		BC9D39DD4B9246A0880D6219 /* InputTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63C32C972441F6B7E34CC2 /* InputTextViewModel.swift */; };
+		CB078AF625AB4928A87B9D1F /* ReadingChoicesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84E8E2AF6844C489B71951B /* ReadingChoicesViewModel.swift */; };
+		DA1C7BB0053B461B9E30F7B6 /* Color+Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE602FD24FD8488C96D6BB0B /* Color+Reader.swift */; };
+		DC2105B52DC5434EA9E9C7F3 /* ReaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE624BE9F0C49AC966BB42B /* ReaderApp.swift */; };
+		F14697118218464AA92D90F3 /* LegacyIntegrationViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6635641105A040ADBC3C0F96 /* LegacyIntegrationViews.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,13 +55,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A63C32C972441F6B7E34CC2 /* InputTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextViewModel.swift; sourceTree = "<group>"; };
+		1BE624BE9F0C49AC966BB42B /* ReaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderApp.swift; sourceTree = "<group>"; };
+		2AA65668E6734DB5AE3C9D9D /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		3D08715F231F524D00CBD3AB /* InputTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextController.swift; sourceTree = "<group>"; };
-		3D35DAF3236DE8C9005D7170 /* UIView+Ads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ads.swift"; sourceTree = "<group>"; };
 		3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		3D497C6A2339B7A800437B97 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChoicesViewController.swift; sourceTree = "<group>"; };
 		3D729AB8235427B800E64731 /* ChoicesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesCell.swift; sourceTree = "<group>"; };
+		3DSR00002EB05ABC005F7731 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
 		3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizerViewController.swift; sourceTree = "<group>"; };
 		3D8FF22123174EA300E51F09 /* Scholarly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scholarly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8FF22423174EA300E51F09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +77,13 @@
 		3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechSettingsViewController.swift; sourceTree = "<group>"; };
 		3DBE9783232E8D0200077C36 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		3DE081E9232B5D85009D3680 /* ReadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadViewController.swift; sourceTree = "<group>"; };
+		616A107E7DB3435F92CDC917 /* ReadingChoicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChoicesView.swift; sourceTree = "<group>"; };
+		6635641105A040ADBC3C0F96 /* LegacyIntegrationViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyIntegrationViews.swift; sourceTree = "<group>"; };
+		8A0B4F84B07D4438BF5E01BC /* RootContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootContainerView.swift; sourceTree = "<group>"; };
+		C84E8E2AF6844C489B71951B /* ReadingChoicesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChoicesViewModel.swift; sourceTree = "<group>"; };
+		CC7C32CE8C53411BAB42A269 /* UIApplication+Reader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Reader.swift"; sourceTree = "<group>"; };
+		DEC7423BC2BE4CE380915CCA /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
+		EE602FD24FD8488C96D6BB0B /* Color+Reader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Reader.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +94,7 @@
 				3D5029392EB056A8005F7731 /* GoogleMobileAds in Frameworks */,
 				3D5029342EB05678005F7731 /* FirebaseCore in Frameworks */,
 				3D5029362EB05678005F7731 /* FirebaseFirestore in Frameworks */,
+				3D50293E2EB0599C005F7731 /* FirebaseAnalytics in Frameworks */,
 				3D50293C2EB056DC005F7731 /* WeScan in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -80,10 +102,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		086F0B3DC07443F0AD47918C /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				1E1C370C13A245709E242842 /* DesignSystem */,
+				AAB2540557A54882B2B5B7FC /* Input */,
+				DFA8A402C56B4B51A6705EC3 /* Legacy */,
+				CED52ABDE2144BC2B9B95DCF /* Reading */,
+				8D58DCF73F334062A96FF640 /* Root */,
+				1BE624BE9F0C49AC966BB42B /* ReaderApp.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
+		1E1C370C13A245709E242842 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				EE602FD24FD8488C96D6BB0B /* Color+Reader.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
 		3D35DAF2236DE8AD005D7170 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3D35DAF3236DE8C9005D7170 /* UIView+Ads.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -137,7 +179,6 @@
 			children = (
 				3D8FF22323174EA300E51F09 /* Reader */,
 				3D8FF22223174EA300E51F09 /* Products */,
-				9A96179DFF58E9938F7F8C26 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -157,16 +198,62 @@
 				3D5448A4234ADB3A00B50888 /* Controllers */,
 				3D5448A5234ADB5900B50888 /* Models */,
 				3D5448A6234ADB6A00B50888 /* Views */,
+				85A40649A4B143C696BAB3F5 /* Services */,
+				086F0B3DC07443F0AD47918C /* SwiftUI */,
+				7A84D34D84614CC3935F8A1F /* Utilities */,
 				3D35DAF2236DE8AD005D7170 /* Extensions */,
 			);
 			path = Reader;
 			sourceTree = "<group>";
 		};
-		9A96179DFF58E9938F7F8C26 /* Frameworks */ = {
+		7A84D34D84614CC3935F8A1F /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				CC7C32CE8C53411BAB42A269 /* UIApplication+Reader.swift */,
 			);
-			name = Frameworks;
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		85A40649A4B143C696BAB3F5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3DSR00002EB05ABC005F7731 /* SettingsRepository.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		8D58DCF73F334062A96FF640 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				8A0B4F84B07D4438BF5E01BC /* RootContainerView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+		AAB2540557A54882B2B5B7FC /* Input */ = {
+			isa = PBXGroup;
+			children = (
+				2AA65668E6734DB5AE3C9D9D /* InputTextView.swift */,
+				0A63C32C972441F6B7E34CC2 /* InputTextViewModel.swift */,
+			);
+			path = Input;
+			sourceTree = "<group>";
+		};
+		CED52ABDE2144BC2B9B95DCF /* Reading */ = {
+			isa = PBXGroup;
+			children = (
+				616A107E7DB3435F92CDC917 /* ReadingChoicesView.swift */,
+				C84E8E2AF6844C489B71951B /* ReadingChoicesViewModel.swift */,
+			);
+			path = Reading;
+			sourceTree = "<group>";
+		};
+		DFA8A402C56B4B51A6705EC3 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				6635641105A040ADBC3C0F96 /* LegacyIntegrationViews.swift */,
+			);
+			path = Legacy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,9 +344,18 @@
 				3D8D3667234EC554001DFFA8 /* SpeechRecognizerViewController.swift in Sources */,
 				3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */,
 				3DE081EA232B5D85009D3680 /* ReadViewController.swift in Sources */,
-				3D35DAF4236DE8C9005D7170 /* UIView+Ads.swift in Sources */,
 				3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */,
 				3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */,
+				DC2105B52DC5434EA9E9C7F3 /* ReaderApp.swift in Sources */,
+				649111EFE15741E68D2C52EB /* RootContainerView.swift in Sources */,
+				8CE9DB4651B9423FBA8459D0 /* InputTextView.swift in Sources */,
+				BC9D39DD4B9246A0880D6219 /* InputTextViewModel.swift in Sources */,
+				DA1C7BB0053B461B9E30F7B6 /* Color+Reader.swift in Sources */,
+				F14697118218464AA92D90F3 /* LegacyIntegrationViews.swift in Sources */,
+				4E9AFED5D74B432DBCA80D1A /* ReadingChoicesView.swift in Sources */,
+				CB078AF625AB4928A87B9D1F /* ReadingChoicesViewModel.swift in Sources */,
+				1B67FD90A36F4D9CAC61CE81 /* UIApplication+Reader.swift in Sources */,
+				3DSR00012EB05ABC005F7731 /* SettingsRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,10 +494,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3LN4LFZD99;
 				INFOPLIST_FILE = Reader/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_KEY_CFBundleDisplayName = Scholarly;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -418,10 +516,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3LN4LFZD99;
 				INFOPLIST_FILE = Reader/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				INFOPLIST_KEY_CFBundleDisplayName = Scholarly;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -503,6 +603,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3D50293A2EB056DC005F7731 /* XCRemoteSwiftPackageReference "WeScan" */;
 			productName = WeScan;
+		};
+		3D50293D2EB0599C005F7731 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

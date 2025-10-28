@@ -22,7 +22,7 @@ class SpeedReadViewController: UIViewController {
     var pauseButton = UIButton()
     var buttonView = UIView()
     var counter = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -170,6 +170,18 @@ class SpeedReadViewController: UIViewController {
         }()
         view.addSubview(resetButton)
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if isMovingFromParent {
+            timer.invalidate()
+            slider.isEnabled = true
+            pauseButton.setImage(UIImage(named: "play"), for: .normal)
+            counter = 0
+            wordLabel.text = ""
+        }
+    }
     
     @objc func playPause() {
         if pauseButton.imageView?.image == UIImage(named: "play") {
@@ -197,7 +209,11 @@ class SpeedReadViewController: UIViewController {
     }
     
     @objc func reset() {
+        timer.invalidate()
         counter = 0
+        slider.isEnabled = true
+        pauseButton.setImage(UIImage(named: "play"), for: .normal)
+        wordLabel.text = ""
     }
     
     @objc func sliderValueDidChange(_ sender: UISlider!) {
@@ -210,7 +226,7 @@ class SpeedReadViewController: UIViewController {
         if counter < words.count {
             if words[counter].count > 2 {
                 let range = NSRange(location:2,length:1)
-                let attributedString = NSMutableAttributedString(string: words[counter], attributes: [NSAttributedString.Key.font:UIFont(name: "Helvetica", size: 30)!])
+                let attributedString = NSMutableAttributedString(string: words[counter], attributes: [NSAttributedString.Key.font:UIFont(name: "Helvetica", size: 30) ?? UIFont.systemFont(ofSize: 30)])
                 attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: Colors().buttonColor, range: range)
                 wordLabel.attributedText = attributedString
             } else {

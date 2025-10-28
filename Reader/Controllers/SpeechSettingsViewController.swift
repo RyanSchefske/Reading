@@ -10,13 +10,26 @@ import UIKit
 import AVFoundation
 
 class SpeechSettingViewController: UITableViewController {
-    
+
     var customNav = UIImageView()
     var voices = [String]()
     var selectedVoice = String()
     var selectedSpeed = String()
     var speeds = ["Very Slow", "Slow", "Normal", "Fast", "Very Fast"]
-    
+
+    // Settings repository for type-safe preferences access
+    private let settingsRepository: SettingsRepositoryProtocol
+
+    init(settingsRepository: SettingsRepositoryProtocol = SettingsRepository()) {
+        self.settingsRepository = settingsRepository
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        self.settingsRepository = SettingsRepository()
+        super.init(coder: coder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,8 +44,8 @@ class SpeechSettingViewController: UITableViewController {
         let textAttributes = [NSAttributedString.Key.foregroundColor: Colors().buttonColor]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        selectedVoice = UserDefaults.standard.string(forKey: "SpeechVoice") ?? String()
-        selectedSpeed = UserDefaults.standard.string(forKey: "SpeechSpeed") ?? String()
+        selectedVoice = settingsRepository.speechVoice
+        selectedSpeed = settingsRepository.speechSpeed
         
         let speechVoices = AVSpeechSynthesisVoice.speechVoices()
         speechVoices.forEach { (voice) in
@@ -72,11 +85,11 @@ class SpeechSettingViewController: UITableViewController {
         }
         
         if section == 0 {
-            UserDefaults.standard.set(voices[indexPath.row], forKey: "SpeechVoice")
+            settingsRepository.speechVoice = voices[indexPath.row]
         }
-        
+
         if section == 1 {
-            UserDefaults.standard.set(speeds[indexPath.row], forKey: "SpeechSpeed")
+            settingsRepository.speechSpeed = speeds[indexPath.row]
         }
     }
     
@@ -106,7 +119,7 @@ class SpeechSettingViewController: UITableViewController {
             navigationController?.navigationBar.tintColor = .white
             navigationController?.navigationBar.barTintColor = Colors().offWhite
             navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white,
-                                                                NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25)!]
+                                                                NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25) ?? UIFont.systemFont(ofSize: 25)]
             navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
             navigationController?.navigationBar.shadowImage = UIImage()
             navigationController?.navigationBar.backgroundColor = .clear

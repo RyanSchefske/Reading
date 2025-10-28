@@ -6,9 +6,13 @@
 //  Copyright © 2019 Ryan Schefske. All rights reserved.
 //
 
-import UIKit
-import Speech
 import GoogleMobileAds
+import Speech
+import UIKit
+
+protocol SpeechRecognizerViewControllerDelegate: AnyObject {
+    func speechRecognizerViewController(_ controller: SpeechRecognizerViewController, didFinishWith text: String)
+}
 
 class SpeechRecognizerViewController: UIViewController {
 
@@ -17,6 +21,8 @@ class SpeechRecognizerViewController: UIViewController {
     private var recognitionTask: SFSpeechRecognitionTask?
     private var audioEngine = AVAudioEngine()
     private var customNav = UIImageView()
+    
+    weak var delegate: SpeechRecognizerViewControllerDelegate?
     
     let startStopButton: UIButton = {
         let button = UIButton()
@@ -149,7 +155,7 @@ class SpeechRecognizerViewController: UIViewController {
                     isButtonEnabled = false
             }
             
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
                 self.startStopButton.isEnabled = isButtonEnabled
             }
         }
@@ -177,17 +183,32 @@ class SpeechRecognizerViewController: UIViewController {
             startStopButton.setTitle("Start", for: .normal)
         }
         
-        if let vc = self.navigationController?.viewControllers[0] as? InputTextController {
-            if self.textView.text != "Click start to begin speech recognition!" && self.textView.text != "Say something, I'm listening!"  {
-                vc.contentString = vc.contentString + " " + self.textView.text
+        let capturedText = textView.text ?? ""
+        let trimmed = capturedText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let isDefaultMessage = capturedText == "Click start to begin speech recognition!" || capturedText == "Say something, I'm listening!"
+
+        if !isDefaultMessage && !trimmed.isEmpty {
+            if let delegate = delegate {
+                delegate.speechRecognizerViewController(self, didFinishWith: capturedText)
+            } else if let inputController = navigationController?.viewControllers.first as? InputTextController {
+                inputController.contentString = inputController.contentString + " " + capturedText
             }
-            self.navigationController?.popToRootViewController(animated: true)
+        }
+
+        if let navigationController = navigationController {
+            if navigationController.presentingViewController != nil && navigationController.viewControllers.count == 1 {
+                navigationController.dismiss(animated: true)
+            } else {
+                navigationController.popViewController(animated: true)
+            }
+        } else {
+            dismiss(animated: true)
         }
     }
     
     func startRecording() {
-        if recognitionTask != nil {
-            recognitionTask?.cancel()
+        if let task = recognitionTask {
+            task.cancel()
             recognitionTask = nil
         }
         
@@ -212,22 +233,21 @@ class SpeechRecognizerViewController: UIViewController {
         recognitionRequest.shouldReportPartialResults = true
         
         recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
-            
+
             var isFinal = false
-            
-            if result != nil {
-                
-                self.textView.text = result?.bestTranscription.formattedString
-                isFinal = (result?.isFinal)!
+
+            if let result = result {
+                self.textView.text = result.bestTranscription.formattedString
+                isFinal = result.isFinal
             }
-            
+
             if error != nil || isFinal {
                 self.audioEngine.stop()
                 inputNode.removeTap(onBus: 0)
-                
+
                 self.recognitionRequest = nil
                 self.recognitionTask = nil
-                
+
                 self.startStopButton.isEnabled = true
             }
         })

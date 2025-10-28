@@ -20,9 +20,22 @@ class SpeechViewController: UIViewController, AVSpeechSynthesizerDelegate {
     let synthesizer = AVSpeechSynthesizer()
     var speechIdentifier = String()
     var speechRate = Float()
-    
+
     var strokeTextAttributes = [NSAttributedString.Key : Any]()
-    
+
+    // Settings repository for type-safe preferences access
+    private let settingsRepository: SettingsRepositoryProtocol
+
+    init(settingsRepository: SettingsRepositoryProtocol = SettingsRepository()) {
+        self.settingsRepository = settingsRepository
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        self.settingsRepository = SettingsRepository()
+        super.init(coder: coder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,33 +45,33 @@ class SpeechViewController: UIViewController, AVSpeechSynthesizerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let userdefaults = UserDefaults.standard
-        if let savedValue = userdefaults.string(forKey: "SpeechVoice"){
-            let speechVoices = AVSpeechSynthesisVoice.speechVoices()
-            speechVoices.forEach { (voice) in
-                if voice.name == savedValue {
-                    speechIdentifier = voice.identifier
-                }
-            }
+        super.viewDidAppear(animated)
+
+        // Get saved voice and find its identifier
+        let savedVoice = settingsRepository.speechVoice
+        let speechVoices = AVSpeechSynthesisVoice.speechVoices()
+
+        if let voice = speechVoices.first(where: { $0.name == savedVoice }) {
+            speechIdentifier = voice.identifier
         } else {
-            userdefaults.set("Daniel", forKey: "SpeechVoice")
+            // Fallback to Daniel if saved voice not found
             speechIdentifier = "com.apple.ttsbundle.Daniel-compact"
         }
-        
-        if let savedSpeed = userdefaults.string(forKey: "SpeechSpeed") {
-            if savedSpeed == "Very Slow" {
-                speechRate = 0.2
-            } else if savedSpeed == "Slow" {
-                speechRate = 0.35
-            } else if savedSpeed == "Normal" {
-                speechRate = 0.5
-            } else if savedSpeed == "Fast" {
-                speechRate = 0.65
-            } else {
-                speechRate = 0.75
-            }
-        } else {
-            userdefaults.set("Normal", forKey: "SpeechSpeed")
+
+        // Convert speed string to rate value
+        let savedSpeed = settingsRepository.speechSpeed
+        switch savedSpeed {
+        case "Very Slow":
+            speechRate = 0.2
+        case "Slow":
+            speechRate = 0.35
+        case "Normal":
+            speechRate = 0.5
+        case "Fast":
+            speechRate = 0.65
+        case "Very Fast":
+            speechRate = 0.75
+        default:
             speechRate = 0.5
         }
     }

@@ -6,24 +6,19 @@
 //  Copyright © 2019 Ryan Schefske. All rights reserved.
 //
 
-import UIKit
-import FirebaseCore
-import FirebaseAnalytics
-import GoogleMobileAds
 import AVFoundation
+import FirebaseAnalytics
+import FirebaseCore
+import GoogleMobileAds
+import UIKit
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
 
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.makeKeyAndVisible()
-        window?.rootViewController = UINavigationController(rootViewController: InputTextController())
-        
         // Configure Firebase
         FirebaseApp.configure()
 
@@ -32,30 +27,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Initialize the Google Mobile Ads SDK
         GADMobileAds.sharedInstance().start(completionHandler: nil)
-        
+
         UINavigationBar.appearance().isTranslucent = true
         UINavigationBar.appearance().tintColor = .white
         UINavigationBar.appearance().barTintColor = Colors().offWhite
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white,
-                                                            NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25)!]
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor: UIColor.white,
+            NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25) ?? UIFont.systemFont(ofSize: 25)
+        ]
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().backgroundColor = .clear
-        
+
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-        }
-        catch let error as NSError {
+        } catch let error as NSError {
             print("Error: Could not set audio category: \(error), \(error.userInfo)")
         }
-        
+
         do {
             try AVAudioSession.sharedInstance().setActive(true)
-        }
-        catch let error as NSError {
+        } catch let error as NSError {
             print("Error: Could not setActive to true: \(error), \(error.userInfo)")
         }
-        
+
         return true
     }
 
@@ -83,4 +78,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
-

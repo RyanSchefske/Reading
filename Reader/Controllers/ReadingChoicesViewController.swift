@@ -15,7 +15,20 @@ class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, 
     private var choicesCV = UICollectionView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: UICollectionViewFlowLayout())
     var readingText = String()
     var clicks = 0
-    
+
+    // Settings repository for type-safe preferences access
+    private let settingsRepository: SettingsRepositoryProtocol
+
+    init(settingsRepository: SettingsRepositoryProtocol = SettingsRepository()) {
+        self.settingsRepository = settingsRepository
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        self.settingsRepository = SettingsRepository()
+        super.init(coder: coder)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,9 +36,11 @@ class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, 
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
         // Load interstitial ad for later use
         AdManager.shared.loadInterstitial()
-        clicks = UserDefaults.standard.integer(forKey: "clicks")
+        clicks = settingsRepository.clicks
     }
     
     func setup() {
@@ -127,7 +142,7 @@ class ReadingChoicesViewController: UIViewController, UICollectionViewDelegate, 
         }
 
         clicks += 1
-        UserDefaults.standard.set(clicks, forKey: "clicks")
+        settingsRepository.clicks = clicks
         
         if indexPath.item == 0 {
             let vc = SpeechViewController()
