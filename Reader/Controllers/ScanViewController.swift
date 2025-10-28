@@ -50,9 +50,6 @@ class ScanViewController: UIViewController, ImageScannerControllerDelegate {
                 DispatchQueue.main.async {
                     delegate.scanViewController(self, didCapture: image)
                 }
-            } else if let inputController = self.navigationController?.viewControllers.first as? InputTextController {
-                inputController.image = image
-                self.navigationController?.popToRootViewController(animated: true)
             }
         }
     }

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1B67FD90A36F4D9CAC61CE81 /* UIApplication+Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C32CE8C53411BAB42A269 /* UIApplication+Reader.swift */; };
 		299E49D1A611499CA2F8709C /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC7423BC2BE4CE380915CCA /* SettingsRepository.swift */; };
-		3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D08715F231F524D00CBD3AB /* InputTextController.swift */; };
 		3D35DAF6236DEC40005D7170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */; };
 		3D43E9862350F6E6003C1F75 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */; };
 		3D497C6B2339B7A800437B97 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D497C6A2339B7A800437B97 /* Colors.swift */; };
@@ -18,7 +17,6 @@
 		3D5029392EB056A8005F7731 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029382EB056A8005F7731 /* GoogleMobileAds */; };
 		3D50293C2EB056DC005F7731 /* WeScan in Frameworks */ = {isa = PBXBuildFile; productRef = 3D50293B2EB056DC005F7731 /* WeScan */; };
 		3D50293E2EB0599C005F7731 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3D50293D2EB0599C005F7731 /* FirebaseAnalytics */; };
-		3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */; };
 		3D729AB9235427B800E64731 /* ChoicesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D729AB8235427B800E64731 /* ChoicesCell.swift */; };
 		3DSR00012EB05ABC005F7731 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DSR00002EB05ABC005F7731 /* SettingsRepository.swift */; };
 		3DSW00012EB06DEF005F7731 /* SpeechReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DSW00002EB06DEF005F7731 /* SpeechReadingView.swift */; };
@@ -63,11 +61,9 @@
 		0A63C32C972441F6B7E34CC2 /* InputTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextViewModel.swift; sourceTree = "<group>"; };
 		1BE624BE9F0C49AC966BB42B /* ReaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderApp.swift; sourceTree = "<group>"; };
 		2AA65668E6734DB5AE3C9D9D /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
-		3D08715F231F524D00CBD3AB /* InputTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextController.swift; sourceTree = "<group>"; };
 		3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3D43E9852350F6E6003C1F75 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		3D497C6A2339B7A800437B97 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingChoicesViewController.swift; sourceTree = "<group>"; };
 		3D729AB8235427B800E64731 /* ChoicesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesCell.swift; sourceTree = "<group>"; };
 		3DSR00002EB05ABC005F7731 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
 		3DSW00002EB06DEF005F7731 /* SpeechReadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechReadingView.swift; sourceTree = "<group>"; };
@@ -164,14 +160,7 @@
 		3D5448A4234ADB3A00B50888 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3D08715F231F524D00CBD3AB /* InputTextController.swift */,
 				3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */,
-				3D8D3666234EC554001DFFA8 /* SpeechRecognizerViewController.swift */,
-				3D5448A7234ADC9E00B50888 /* ReadingChoicesViewController.swift */,
-				3D8FF23623174F1700E51F09 /* SpeechViewController.swift */,
-				3DB891942371DADD001CCAA4 /* SpeechSettingsViewController.swift */,
-				3DA7D02D231CE1F00092A9F0 /* SpeedReadViewController.swift */,
-				3DE081E9232B5D85009D3680 /* ReadViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -367,8 +356,6 @@
 				3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */,
 				3D8FF2392318AA4E00E51F09 /* ScanViewController.swift in Sources */,
 				3DBE9784232E8D0200077C36 /* CustomButton.swift in Sources */,
-				3D5448A8234ADC9E00B50888 /* ReadingChoicesViewController.swift in Sources */,
-				3D087160231F524D00CBD3AB /* InputTextController.swift in Sources */,
 				DC2105B52DC5434EA9E9C7F3 /* ReaderApp.swift in Sources */,
 				649111EFE15741E68D2C52EB /* RootContainerView.swift in Sources */,
 				8CE9DB4651B9423FBA8459D0 /* InputTextView.swift in Sources */,
