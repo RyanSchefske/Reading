@@ -11,6 +11,7 @@ import StoreKit
 import UIKit
 
 /// Manages App Store rating prompts
+@MainActor
 final class RatingManager {
 
     // MARK: - Singleton
