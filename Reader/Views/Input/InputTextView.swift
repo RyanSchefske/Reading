@@ -264,7 +264,6 @@ struct InputTextView: View {
                 VStack(spacing: 12) {
                     Text("Welcome to Scholarly!")
                         .font(.title.bold())
-                        .foregroundColor(.white)
 
                     Text("Add any text and choose how you want to read it:")
                         .font(.body)

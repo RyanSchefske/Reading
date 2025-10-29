@@ -12,6 +12,7 @@ struct MainTabView: View {
     // MARK: - State
 
     @State private var selectedTab: Tab = .read
+    @StateObject private var subscriptionManager = SubscriptionManager.shared
 
     // MARK: - Tab Enum
 
@@ -64,6 +65,9 @@ struct MainTabView: View {
             .tag(Tab.settings)
         }
         .tint(.readerAccent)
+        .sheet(isPresented: $subscriptionManager.showPaywall) {
+            PaywallView()
+        }
     }
 }
 

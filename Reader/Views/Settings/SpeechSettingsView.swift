@@ -10,14 +10,18 @@ import SwiftUI
 struct SpeechSettingsView: View {
 
     @StateObject private var viewModel = SpeechSettingsViewModel()
+    @StateObject private var subscriptionManager = SubscriptionManager.shared
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         List {
+            if !subscriptionManager.isPro {
+                upgradeSection
+            }
             voiceSection
             speedSection
         }
-        .navigationTitle("Speech Settings")
+        .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -50,6 +54,50 @@ struct SpeechSettingsView: View {
             }
         } header: {
             Text("Voice")
+        }
+    }
+
+    private var upgradeSection: some View {
+        Section {
+            Button {
+                HapticManager.shared.light()
+                subscriptionManager.showPaywall = true
+            } label: {
+                HStack(spacing: 16) {
+                    ZStack {
+                        Circle()
+                            .fill(
+                                LinearGradient(
+                                    colors: [Color.readerAccent, Color.readerAccent.opacity(0.7)],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .frame(width: 44, height: 44)
+
+                        Image(systemName: "crown.fill")
+                            .foregroundColor(.white)
+                            .font(.title3)
+                    }
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Upgrade to Scholarly Pro")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+
+                        Text("Unlock AI summaries, unlimited history, and more")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+
+                    Spacer()
+
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.secondary)
+                        .font(.caption)
+                }
+                .padding(.vertical, 8)
+            }
         }
     }
 

@@ -8,6 +8,7 @@
 
 import AVFoundation
 import GoogleMobileAds
+import RevenueCat
 import UIKit
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         // Initialize the Google Mobile Ads SDK
         MobileAds.shared.start()
+
+        // Configure RevenueCat
+        // TODO: Replace with your RevenueCat API key from https://app.revenuecat.com
+        let revenueCatAPIKey = "appl_smPOKflgguSmxwZfMRvSAVOXHml"
+        SubscriptionManager.configure(apiKey: revenueCatAPIKey)
 
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: .mixWithOthers)

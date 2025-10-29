@@ -37,12 +37,14 @@ final class AdManager: NSObject {
         static let interstitial = "ca-app-pub-2392719817363402~6341211139"
     }
 
-    #if DEBUG
-    /// Disable ads entirely in debug mode
-    private let adsEnabled = false
-    #else
-    private let adsEnabled = true
-    #endif
+    /// Check if ads should be shown (disabled in debug mode or for Pro users)
+    private var adsEnabled: Bool {
+        #if DEBUG
+        return false
+        #else
+        return !SubscriptionManager.shared.isPro
+        #endif
+    }
 
     /// Currently loaded interstitial ad
     private var interstitialAd: InterstitialAd?

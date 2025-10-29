@@ -28,13 +28,6 @@ struct ReadingHistoryView: View {
             .navigationTitle("Reading History")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Done") {
-                        HapticManager.shared.light()
-                        dismiss()
-                    }
-                }
-
                 ToolbarItem(placement: .navigationBarTrailing) {
                     if !repository.history.isEmpty {
                         Button(role: .destructive) {

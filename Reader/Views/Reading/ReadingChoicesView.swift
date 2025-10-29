@@ -22,9 +22,11 @@ struct ReadingChoicesView: View {
             VStack(spacing: 24) {
                 header
 
-                // AI Summary Button (if available)
+                // AI Summary Button (if available) or Upgrade prompt
                 if viewModel.isAISummaryAvailable {
                     aiSummaryButton
+                } else if viewModel.shouldShowAISummaryUpgrade {
+                    aiSummaryUpgradeButton
                 }
 
                 choiceCards
@@ -128,6 +130,54 @@ struct ReadingChoicesView: View {
             .cornerRadius(18)
             .shadow(
                 color: Color.readerAccent.opacity(0.3),
+                radius: 12,
+                x: 0,
+                y: 8
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+
+    private var aiSummaryUpgradeButton: some View {
+        Button {
+            HapticManager.shared.light()
+            SubscriptionManager.shared.showPaywall = true
+        } label: {
+            HStack(spacing: 16) {
+                Image(systemName: "sparkles.rectangle.stack")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(spacing: 8) {
+                        Text("AI Summary")
+                            .font(.headline)
+                            .foregroundColor(.white)
+
+                        Image(systemName: "crown.fill")
+                            .font(.caption)
+                            .foregroundColor(.yellow)
+                    }
+                    Text("Upgrade to Pro to unlock AI-powered summaries")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.9))
+                }
+                Spacer()
+
+                Image(systemName: "lock.fill")
+                    .foregroundColor(.white.opacity(0.7))
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                LinearGradient(
+                    colors: [Color.purple, Color.purple.opacity(0.7)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .cornerRadius(18)
+            .shadow(
+                color: Color.purple.opacity(0.3),
                 radius: 12,
                 x: 0,
                 y: 8

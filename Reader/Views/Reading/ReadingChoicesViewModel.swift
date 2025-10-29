@@ -80,10 +80,24 @@ final class ReadingChoicesViewModel: ObservableObject {
     // MARK: - Computed Properties
 
     var isAISummaryAvailable: Bool {
-        // Check if text is long enough and Apple Intelligence is available
+        // Check if text is long enough, Apple Intelligence is available, AND user is Pro
         let wordCount = readingText.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.count
         if #available(iOS 26.0, *) {
-            return wordCount > 20 && TextSummaryService.shared.isAvailable
+            return wordCount > 20
+                && TextSummaryService.shared.isAvailable
+                && SubscriptionManager.shared.hasAccess(to: .aiSummary)
+        } else {
+            return false
+        }
+    }
+
+    var shouldShowAISummaryUpgrade: Bool {
+        // Show upgrade prompt if AI is available but user is not Pro
+        let wordCount = readingText.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.count
+        if #available(iOS 26.0, *) {
+            return wordCount > 20
+                && TextSummaryService.shared.isAvailable
+                && !SubscriptionManager.shared.isPro
         } else {
             return false
         }
