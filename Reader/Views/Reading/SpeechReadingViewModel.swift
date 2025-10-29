@@ -27,6 +27,7 @@ final class SpeechReadingViewModel: NSObject, ObservableObject {
 
     private var speechIdentifier: String = ""
     private var speechRate: Float = 0.5
+    private var sessionStartTime: Date?
 
     // MARK: - Playback State
 
@@ -117,6 +118,11 @@ final class SpeechReadingViewModel: NSObject, ObservableObject {
         currentUtterance = utterance
         synthesizer.speak(utterance)
         playbackState = .playing
+
+        // Track session start time
+        if sessionStartTime == nil {
+            sessionStartTime = Date()
+        }
     }
 
     private func pauseSpeaking() {
@@ -153,6 +159,14 @@ extension SpeechReadingViewModel: AVSpeechSynthesizerDelegate {
         Task { @MainActor in
             attributedText = AttributedString(readingText)
             playbackState = .stopped
+
+            // Record stats if session was tracked
+            if let startTime = sessionStartTime {
+                let duration = Date().timeIntervalSince(startTime)
+                let wordCount = readingText.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.count
+                StatsRepository.shared.recordSession(wordCount: wordCount, duration: duration)
+                sessionStartTime = nil
+            }
 
             // Increment session count for rating prompt
             RatingManager.shared.incrementSessionCount()

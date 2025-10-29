@@ -9,9 +9,7 @@ import SwiftUI
 
 struct RootContainerView: View {
     var body: some View {
-        NavigationStack {
-            InputTextView()
-        }
+        MainTabView()
     }
 }
 

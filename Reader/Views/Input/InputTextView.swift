@@ -52,15 +52,6 @@ struct InputTextView: View {
         .navigationTitle("Scholarly")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    HapticManager.shared.light()
-                    isShowingHistory = true
-                } label: {
-                    Image(systemName: "clock.arrow.circlepath")
-                }
-            }
-
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button("Done") {

@@ -24,6 +24,7 @@ final class SpeedReadingViewModel: ObservableObject {
     // MARK: - Private Properties
 
     private var timer: Task<Void, Never>?
+    private var sessionStartTime: Date?
 
     // MARK: - Playback State
 
@@ -108,6 +109,12 @@ final class SpeedReadingViewModel: ObservableObject {
     private func startReading() {
         playbackState = .playing
         isSliderEnabled = false
+
+        // Track session start time
+        if sessionStartTime == nil {
+            sessionStartTime = Date()
+        }
+
         scheduleNextWord()
     }
 
@@ -145,7 +152,13 @@ final class SpeedReadingViewModel: ObservableObject {
                     updateDisplayedWord()
                     currentWordIndex += 1
                 } else {
-                    // Reached end
+                    // Reached end - record stats
+                    if let startTime = sessionStartTime {
+                        let duration = Date().timeIntervalSince(startTime)
+                        StatsRepository.shared.recordSession(wordCount: words.count, duration: duration)
+                        sessionStartTime = nil
+                    }
+
                     stopReading()
                     reset()
 

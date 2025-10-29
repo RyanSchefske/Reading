@@ -23,6 +23,7 @@ final class ScrollReadingViewModel: ObservableObject {
 
     private var scrollTask: Task<Void, Never>?
     private let maxScrollOffset: CGFloat = 10000 // Will be adjusted based on content
+    private var sessionStartTime: Date?
 
     // MARK: - Playback State
 
@@ -85,6 +86,11 @@ final class ScrollReadingViewModel: ObservableObject {
         playbackState = .playing
         isSliderEnabled = false
 
+        // Track session start time
+        if sessionStartTime == nil {
+            sessionStartTime = Date()
+        }
+
         scrollTask?.cancel()
         scrollTask = Task { @MainActor in
             // 60 FPS update rate
@@ -100,6 +106,14 @@ final class ScrollReadingViewModel: ObservableObject {
 
                 // Check if we've reached the end (simplified - actual end depends on content height)
                 if scrollOffset >= maxScrollOffset {
+                    // Record stats if session was tracked
+                    if let startTime = sessionStartTime {
+                        let duration = Date().timeIntervalSince(startTime)
+                        let wordCount = readingText.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.count
+                        StatsRepository.shared.recordSession(wordCount: wordCount, duration: duration)
+                        sessionStartTime = nil
+                    }
+
                     stopScrolling()
                     reset()
 
