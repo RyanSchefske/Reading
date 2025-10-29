@@ -22,7 +22,7 @@ final class InputTextViewModel: ObservableObject {
 
     // MARK: - Constants
 
-    let placeholderText = "Type, paste, or select a button below to begin!"
+    let placeholderText = "Add text to read with speed reading, text-to-speech, or scrolling modes"
 
     // MARK: - Derived State
 
@@ -43,7 +43,9 @@ final class InputTextViewModel: ObservableObject {
             do {
                 let recognized = try await recognizeText(in: image)
                 applyRecognizedText(recognized)
+                HapticManager.shared.success()
             } catch {
+                HapticManager.shared.error()
                 present(error: error)
             }
 

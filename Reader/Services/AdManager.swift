@@ -35,17 +35,13 @@ final class AdManager: NSObject {
     private struct AdUnitIDs {
         static let banner = "ca-app-pub-2392719817363402~9276402219"
         static let interstitial = "ca-app-pub-2392719817363402~6341211139"
-
-        // Test ad unit IDs (used in DEBUG mode)
-        static let testBanner = "ca-app-pub-3940256099942544/2934735716"
-        static let testInterstitial = "ca-app-pub-3940256099942544/4411468910"
     }
 
     #if DEBUG
-    /// Use test ads in debug mode to avoid policy violations
-    private let testMode = true
+    /// Disable ads entirely in debug mode
+    private let adsEnabled = false
     #else
-    private let testMode = false
+    private let adsEnabled = true
     #endif
 
     /// Currently loaded interstitial ad
@@ -71,9 +67,14 @@ final class AdManager: NSObject {
     func createBannerView(
         for viewController: UIViewController,
         delegate: BannerViewDelegate? = nil
-    ) -> BannerView {
+    ) -> BannerView? {
+        guard adsEnabled else {
+            print("🚫 Ads disabled in DEBUG mode")
+            return nil
+        }
+
         let bannerView = BannerView(adSize: AdSizeBanner)
-        bannerView.adUnitID = testMode ? AdUnitIDs.testBanner : AdUnitIDs.banner
+        bannerView.adUnitID = AdUnitIDs.banner
         bannerView.rootViewController = viewController
         bannerView.delegate = delegate ?? self
         return bannerView
@@ -90,7 +91,14 @@ final class AdManager: NSObject {
         viewController: UIViewController,
         delegate: BannerViewDelegate? = nil
     ) {
-        let bannerView = createBannerView(for: viewController, delegate: delegate)
+        guard adsEnabled else {
+            print("🚫 Ads disabled in DEBUG mode - skipping banner")
+            return
+        }
+
+        guard let bannerView = createBannerView(for: viewController, delegate: delegate) else {
+            return
+        }
 
         view.addSubview(bannerView)
         bannerView.translatesAutoresizingMaskIntoConstraints = false
@@ -112,6 +120,12 @@ final class AdManager: NSObject {
     ///
     /// - Parameter completion: Optional completion handler with success status
     func loadInterstitial(completion: ((Bool) -> Void)? = nil) {
+        guard adsEnabled else {
+            print("🚫 Ads disabled in DEBUG mode - skipping interstitial")
+            completion?(false)
+            return
+        }
+
         guard !isLoadingInterstitial else {
             print("⚠️ Interstitial ad already loading")
             completion?(false)
@@ -120,10 +134,8 @@ final class AdManager: NSObject {
 
         isLoadingInterstitial = true
 
-        let adUnitID = testMode ? AdUnitIDs.testInterstitial : AdUnitIDs.interstitial
-
         InterstitialAd.load(
-            with: adUnitID,
+            with: AdUnitIDs.interstitial,
             request: Request()
         ) { [weak self] ad, error in
             guard let self = self else { return }
@@ -149,6 +161,11 @@ final class AdManager: NSObject {
     /// - Returns: True if ad was shown, false if not loaded
     @discardableResult
     func showInterstitial(from viewController: UIViewController) -> Bool {
+        guard adsEnabled else {
+            print("🚫 Ads disabled in DEBUG mode - skipping interstitial")
+            return false
+        }
+
         guard let interstitialAd = interstitialAd else {
             print("⚠️ Interstitial ad not loaded, loading now for next time")
             // Preload for next time

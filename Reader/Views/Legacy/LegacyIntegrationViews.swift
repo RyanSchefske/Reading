@@ -16,10 +16,28 @@ import UIKit
 struct LegacyScanView: UIViewControllerRepresentable {
 
     let onImageCaptured: (UIImage) -> Void
+    let onMultipleImagesCaptured: (([UIImage]) -> Void)?
     @Environment(\.dismiss) private var dismiss
 
+    init(onImageCaptured: @escaping (UIImage) -> Void) {
+        self.onImageCaptured = onImageCaptured
+        self.onMultipleImagesCaptured = nil
+    }
+
+    init(onMultipleImagesCaptured: @escaping ([UIImage]) -> Void) {
+        self.onMultipleImagesCaptured = onMultipleImagesCaptured
+        // Provide default single image handler that calls the multi-image handler
+        self.onImageCaptured = { image in
+            onMultipleImagesCaptured([image])
+        }
+    }
+
     func makeCoordinator() -> Coordinator {
-        Coordinator(onImageCaptured: onImageCaptured, onDismiss: { dismiss() })
+        Coordinator(
+            onImageCaptured: onImageCaptured,
+            onMultipleImagesCaptured: onMultipleImagesCaptured,
+            onDismiss: { dismiss() }
+        )
     }
 
     func makeUIViewController(context: Context) -> UINavigationController {
@@ -32,15 +50,32 @@ struct LegacyScanView: UIViewControllerRepresentable {
 
     final class Coordinator: NSObject, ScanViewControllerDelegate {
         private let onImageCaptured: (UIImage) -> Void
+        private let onMultipleImagesCaptured: (([UIImage]) -> Void)?
         private let onDismiss: () -> Void
 
-        init(onImageCaptured: @escaping (UIImage) -> Void, onDismiss: @escaping () -> Void) {
+        init(
+            onImageCaptured: @escaping (UIImage) -> Void,
+            onMultipleImagesCaptured: (([UIImage]) -> Void)?,
+            onDismiss: @escaping () -> Void
+        ) {
             self.onImageCaptured = onImageCaptured
+            self.onMultipleImagesCaptured = onMultipleImagesCaptured
             self.onDismiss = onDismiss
         }
 
         func scanViewController(_ controller: ScanViewController, didCapture image: UIImage) {
             onImageCaptured(image)
+            onDismiss()
+        }
+
+        func scanViewController(_ controller: ScanViewController, didCaptureMultiple images: [UIImage]) {
+            if let onMultipleImagesCaptured = onMultipleImagesCaptured {
+                // Use multi-page handler if provided
+                onMultipleImagesCaptured(images)
+            } else if let firstImage = images.first {
+                // Fall back to single image handler with first image
+                onImageCaptured(firstImage)
+            }
             onDismiss()
         }
     }

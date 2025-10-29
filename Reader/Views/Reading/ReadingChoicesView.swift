@@ -30,11 +30,14 @@ struct ReadingChoicesView: View {
             .padding(.vertical, 24)
         }
         .background(Color.readerBackground)
-        .ignoresSafeArea()
         .navigationTitle("Choices")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             viewModel.onAppear()
+
+            // Save to reading history
+            let historyItem = ReadingHistoryItem(text: viewModel.readingText)
+            ReadingHistoryRepository.shared.save(historyItem)
         }
         .alert(
             "Error",
@@ -78,7 +81,7 @@ struct ReadingChoicesView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(Color.white)
+                .fill(Color(uiColor: .tertiarySystemBackground))
                 .shadow(
                     color: Color.black.opacity(0.08),
                     radius: 16,
@@ -126,7 +129,7 @@ private struct ReadingChoiceCard: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .fill(Color.white)
+                    .fill(Color(uiColor: .tertiarySystemBackground))
             )
         }
         .buttonStyle(ReaderCardButtonStyle())

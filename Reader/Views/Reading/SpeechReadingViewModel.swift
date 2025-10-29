@@ -153,6 +153,9 @@ extension SpeechReadingViewModel: AVSpeechSynthesizerDelegate {
         Task { @MainActor in
             attributedText = AttributedString(readingText)
             playbackState = .stopped
+
+            // Increment session count for rating prompt
+            RatingManager.shared.incrementSessionCount()
         }
     }
 

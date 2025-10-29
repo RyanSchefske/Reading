@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension Color {
-    static let readerBackground = Color(uiColor: UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1))
+    static let readerBackground = Color(uiColor: .systemGroupedBackground)
     static let readerAccent = Color(uiColor: UIColor(red: 35/255, green: 153/255, blue: 250/255, alpha: 1))
 }
 

@@ -64,7 +64,7 @@ struct ScrollReadingView: View {
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.white)
+                .fill(Color(uiColor: .tertiarySystemBackground))
                 .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 12)
         )
     }
@@ -90,7 +90,6 @@ struct ScrollReadingView: View {
                             .id("bottom")
                     }
                 }
-                .background(Color.white)
                 .onChange(of: viewModel.scrollOffset) { offset in
                     withAnimation(.linear(duration: 0.016)) { // 60 FPS
                         scrollProxy.scrollTo("top", anchor: .top)
@@ -143,14 +142,15 @@ struct ScrollReadingView: View {
                     .font(.title3)
                 Text("Reset")
                     .font(.headline)
+                    .foregroundStyle(Color.readerAccent)
             }
             .foregroundColor(.readerAccent)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
         }
-        .background(Color.white)
-        .overlay(
+        .background(
             RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .fill(Color(uiColor: .tertiarySystemBackground))
                 .stroke(Color.readerAccent, lineWidth: 2)
         )
         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))

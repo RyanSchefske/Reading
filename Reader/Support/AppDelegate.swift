@@ -7,8 +7,6 @@
 //
 
 import AVFoundation
-import FirebaseAnalytics
-import FirebaseCore
 import GoogleMobileAds
 import UIKit
 
@@ -18,29 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-
-        // Configure Firebase
-        FirebaseApp.configure()
-
-        // Enable Firebase Analytics
-        Analytics.setAnalyticsCollectionEnabled(true)
-
         // Initialize the Google Mobile Ads SDK
-//        GADMobileAds.sharedInstance().start(completionHandler: nil)
-
-        UINavigationBar.appearance().isTranslucent = true
-//        UINavigationBar.appearance().tintColor = .white
-//        UINavigationBar.appearance().barTintColor = Color.offWhite
-//        UINavigationBar.appearance().titleTextAttributes = [
-//            NSAttributedString.Key.foregroundColor: UIColor.white,
-//            NSAttributedString.Key.font: UIFont(name: "Helvetica Neue", size: 25) ?? UIFont.systemFont(ofSize: 25)
-//        ]
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-//        UINavigationBar.appearance().shadowImage = UIImage()
-//        UINavigationBar.appearance().backgroundColor = .clear
+        MobileAds.shared.start()
 
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, options: .mixWithOthers)
         } catch let error as NSError {
             print("Error: Could not set audio category: \(error), \(error.userInfo)")
         }

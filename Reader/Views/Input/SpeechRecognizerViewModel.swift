@@ -14,7 +14,7 @@ final class SpeechRecognizerViewModel: NSObject, ObservableObject {
 
     // MARK: - Published Properties
 
-    @Published var recognizedText: String = "Click start to begin speech recognition!"
+    @Published var recognizedText: String = "Tap start to begin speech recognition!"
     @Published var isRecording: Bool = false
     @Published var isAuthorized: Bool = false
     @Published var errorMessage: String?

@@ -67,7 +67,7 @@ struct SpeechReadingView: View {
         .frame(minHeight: 300)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.white)
+                .fill(Color(uiColor: .tertiarySystemBackground))
                 .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 12)
         )
     }
@@ -88,8 +88,8 @@ struct SpeechReadingView: View {
                     .font(.title2)
                 Text(playPauseTitle)
                     .font(.headline)
+                    .foregroundStyle(Color.white)
             }
-            .foregroundColor(.white)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 16)
         }
@@ -117,7 +117,6 @@ struct SpeechReadingView: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
         }
-        .background(Color.white)
         .overlay(
             RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .stroke(Color.readerAccent, lineWidth: 2)
@@ -147,7 +146,7 @@ struct SpeechReadingView: View {
     private var playPauseTitle: String {
         switch viewModel.playbackState {
         case .stopped:
-            return "Speak"
+            return "Start"
         case .playing:
             return "Pause"
         case .paused:

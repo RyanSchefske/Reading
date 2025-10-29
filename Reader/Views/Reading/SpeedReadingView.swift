@@ -60,7 +60,7 @@ struct SpeedReadingView: View {
         .padding(20)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.white)
+                .fill(Color(uiColor: .tertiarySystemBackground))
                 .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 12)
         )
     }
@@ -71,7 +71,7 @@ struct SpeedReadingView: View {
             .frame(maxWidth: .infinity, minHeight: 200)
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.white)
+                    .fill(Color(uiColor: .tertiarySystemBackground))
                     .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 12)
             )
     }
@@ -137,7 +137,6 @@ struct SpeedReadingView: View {
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
         }
-        .background(Color.white)
         .overlay(
             RoundedRectangle(cornerRadius: 14, style: .continuous)
                 .stroke(Color.readerAccent, lineWidth: 2)

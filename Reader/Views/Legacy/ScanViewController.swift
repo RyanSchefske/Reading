@@ -7,60 +7,85 @@
 //
 
 import UIKit
-import WeScan
+import VisionKit
 
 protocol ScanViewControllerDelegate: AnyObject {
     func scanViewController(_ controller: ScanViewController, didCapture image: UIImage)
+    func scanViewController(_ controller: ScanViewController, didCaptureMultiple images: [UIImage])
 }
 
-class ScanViewController: UIViewController, ImageScannerControllerDelegate {
-    
-    weak var delegate: ScanViewControllerDelegate?
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setup()
-    }
-    
-    func setup() {
-        view.backgroundColor = .white
-        title = "Scan"
-        
-        let scannerViewController = ImageScannerController()
-        scannerViewController.imageScannerDelegate = self
-        present(scannerViewController, animated: true)
-    }
-    
-    func imageScannerController(_ scanner: ImageScannerController, didFinishScanningWithResults results: ImageScannerResults) {
-        scanner.dismiss(animated: true) { [weak self] in
-            guard let self = self else { return }
-
-            let chosenImage: UIImage?
-
-//            if results.doesUserPreferEnhancedImage {
-//                chosenImage = results.enhancedImage
-//            } else {
-//                chosenImage = results.scannedImage
-//            }
-
-//            guard let image = chosenImage else { return }
-
-//            if let delegate = self.delegate {
-//                DispatchQueue.main.async {
-//                    delegate.scanViewController(self, didCapture: image)
-//                }
-//            }
+// Make multi-page method optional for backward compatibility
+extension ScanViewControllerDelegate {
+    func scanViewController(_ controller: ScanViewController, didCaptureMultiple images: [UIImage]) {
+        // Default implementation: call single image delegate with first image
+        if let firstImage = images.first {
+            scanViewController(controller, didCapture: firstImage)
         }
     }
-    
-    func imageScannerControllerDidCancel(_ scanner: ImageScannerController) {
-        scanner.dismiss(animated: true, completion: nil)
+}
+
+@available(iOS 13.0, *)
+class ScanViewController: UIViewController, VNDocumentCameraViewControllerDelegate {
+
+    weak var delegate: ScanViewControllerDelegate?
+    private var hasPresented = false
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Scan"
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        // Present scanner only once when view appears
+        guard !hasPresented else { return }
+        hasPresented = true
+
+        let scannerViewController = VNDocumentCameraViewController()
+        scannerViewController.delegate = self
+        present(scannerViewController, animated: true)
+    }
+
+    // MARK: - VNDocumentCameraViewControllerDelegate
+
+    func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFinishWith scan: VNDocumentCameraScan) {
+        controller.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+
+            // Collect all scanned pages
+            var scannedImages: [UIImage] = []
+            for pageIndex in 0..<scan.pageCount {
+                let image = scan.imageOfPage(at: pageIndex)
+                scannedImages.append(image)
+            }
+
+            guard !scannedImages.isEmpty else { return }
+
+            if let delegate = self.delegate {
+                DispatchQueue.main.async {
+                    // Call multi-page delegate method
+                    delegate.scanViewController(self, didCaptureMultiple: scannedImages)
+                }
+            }
+        }
+    }
+
+    func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
+        controller.dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
     }
-    
-    func imageScannerController(_ scanner: ImageScannerController, didFailWithError error: Error) {
-        print("Error")
+
+    func documentCameraViewController(_ controller: VNDocumentCameraViewController, didFailWithError error: Error) {
+        print("Document scan error: \(error.localizedDescription)")
+        controller.dismiss(animated: true)
+
+        // Optionally show error to user
+        let alert = UIAlertController(title: "Scan Error",
+                                     message: error.localizedDescription,
+                                     preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
-    
+
 }

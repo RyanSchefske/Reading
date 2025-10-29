@@ -102,6 +102,10 @@ final class ScrollReadingViewModel: ObservableObject {
                 if scrollOffset >= maxScrollOffset {
                     stopScrolling()
                     reset()
+
+                    // Increment session count for rating prompt
+                    RatingManager.shared.incrementSessionCount()
+
                     break
                 }
             }

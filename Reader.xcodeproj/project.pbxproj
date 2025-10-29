@@ -10,14 +10,9 @@
 		1B67FD90A36F4D9CAC61CE81 /* UIApplication+Reader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC7C32CE8C53411BAB42A269 /* UIApplication+Reader.swift */; };
 		3D35DAF6236DEC40005D7170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */; };
 		3D497C6B2339B7A800437B97 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D497C6A2339B7A800437B97 /* Colors.swift */; };
-		3D5029342EB05678005F7731 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029332EB05678005F7731 /* FirebaseCore */; };
-		3D5029362EB05678005F7731 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029352EB05678005F7731 /* FirebaseFirestore */; };
 		3D5029392EB056A8005F7731 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 3D5029382EB056A8005F7731 /* GoogleMobileAds */; };
-		3D50293C2EB056DC005F7731 /* WeScan in Frameworks */ = {isa = PBXBuildFile; productRef = 3D50293B2EB056DC005F7731 /* WeScan */; };
-		3D50293E2EB0599C005F7731 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3D50293D2EB0599C005F7731 /* FirebaseAnalytics */; };
 		3D8FF22523174EA300E51F09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF22423174EA300E51F09 /* AppDelegate.swift */; };
 		3D8FF22C23174EA400E51F09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22B23174EA400E51F09 /* Assets.xcassets */; };
-		3D8FF22F23174EA400E51F09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D8FF22D23174EA400E51F09 /* LaunchScreen.storyboard */; };
 		3D8FF2392318AA4E00E51F09 /* ScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */; };
 		3DSR00012EB05ABC005F7731 /* SettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DSR00002EB05ABC005F7731 /* SettingsRepository.swift */; };
 		3DSW00012EB06DEF005F7731 /* SpeechReadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DSW00002EB06DEF005F7731 /* SpeechReadingView.swift */; };
@@ -64,7 +59,6 @@
 		3D8FF22123174EA300E51F09 /* Scholarly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scholarly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D8FF22423174EA300E51F09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3D8FF22B23174EA400E51F09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3D8FF22E23174EA400E51F09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3D8FF23023174EA400E51F09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D8FF2382318AA4E00E51F09 /* ScanViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanViewController.swift; sourceTree = "<group>"; };
 		3DSR00002EB05ABC005F7731 /* SettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsRepository.swift; sourceTree = "<group>"; };
@@ -94,10 +88,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D5029392EB056A8005F7731 /* GoogleMobileAds in Frameworks */,
-				3D5029342EB05678005F7731 /* FirebaseCore in Frameworks */,
-				3D5029362EB05678005F7731 /* FirebaseFirestore in Frameworks */,
-				3D50293E2EB0599C005F7731 /* FirebaseAnalytics in Frameworks */,
-				3D50293C2EB056DC005F7731 /* WeScan in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,7 +109,6 @@
 				3D8FF22423174EA300E51F09 /* AppDelegate.swift */,
 				3D8FF22B23174EA400E51F09 /* Assets.xcassets */,
 				3D35DAF5236DEC3F005D7170 /* GoogleService-Info.plist */,
-				3D8FF22D23174EA400E51F09 /* LaunchScreen.storyboard */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -282,9 +271,7 @@
 			);
 			mainGroup = 3D8FF21823174EA300E51F09;
 			packageReferences = (
-				3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3D5029372EB056A8005F7731 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
-				3D50293A2EB056DC005F7731 /* XCRemoteSwiftPackageReference "WeScan" */,
 			);
 			productRefGroup = 3D8FF22223174EA300E51F09 /* Products */;
 			projectDirPath = "";
@@ -300,7 +287,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D8FF22F23174EA400E51F09 /* LaunchScreen.storyboard in Resources */,
 				3D8FF22C23174EA400E51F09 /* Assets.xcassets in Resources */,
 				3D35DAF6236DEC40005D7170 /* GoogleService-Info.plist in Resources */,
 			);
@@ -342,17 +328,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		3D8FF22D23174EA400E51F09 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3D8FF22E23174EA400E51F09 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		3D8FF23123174EA400E51F09 /* Debug */ = {
@@ -539,14 +514,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.4.0;
-			};
-		};
 		3D5029372EB056A8005F7731 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads";
@@ -555,41 +522,13 @@
 				minimumVersion = 12.12.0;
 			};
 		};
-		3D50293A2EB056DC005F7731 /* XCRemoteSwiftPackageReference "WeScan" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/WeTransfer/WeScan";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3D5029332EB05678005F7731 /* FirebaseCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCore;
-		};
-		3D5029352EB05678005F7731 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
-		};
 		3D5029382EB056A8005F7731 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3D5029372EB056A8005F7731 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
 			productName = GoogleMobileAds;
-		};
-		3D50293B2EB056DC005F7731 /* WeScan */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3D50293A2EB056DC005F7731 /* XCRemoteSwiftPackageReference "WeScan" */;
-			productName = WeScan;
-		};
-		3D50293D2EB0599C005F7731 /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3D5029322EB05678005F7731 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -148,6 +148,10 @@ final class SpeedReadingViewModel: ObservableObject {
                     // Reached end
                     stopReading()
                     reset()
+
+                    // Increment session count for rating prompt
+                    RatingManager.shared.incrementSessionCount()
+
                     break
                 }
             }

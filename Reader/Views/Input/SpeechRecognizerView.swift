@@ -67,7 +67,7 @@ struct SpeechRecognizerView: View {
         .frame(minHeight: 300)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.white)
+                .fill(Color(uiColor: .tertiarySystemBackground))
                 .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 12)
         )
     }
@@ -108,7 +108,7 @@ struct SpeechRecognizerView: View {
 
     private func handleDone() {
         let trimmedText = viewModel.recognizedText.trimmingCharacters(in: .whitespacesAndNewlines)
-        let isDefaultMessage = viewModel.recognizedText == "Click start to begin speech recognition!" ||
+        let isDefaultMessage = viewModel.recognizedText == "Tap start to begin speech recognition!" ||
                               viewModel.recognizedText == "Say something, I'm listening!"
 
         if !isDefaultMessage && !trimmedText.isEmpty {

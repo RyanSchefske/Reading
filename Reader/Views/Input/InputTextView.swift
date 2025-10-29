@@ -15,8 +15,13 @@ struct InputTextView: View {
     @State private var isShowingImagePicker = false
     @State private var isShowingScan = false
     @State private var isShowingSpeechRecognizer = false
+    @State private var isShowingHistory = false
     @State private var readingTextForNavigation: String?
     @State private var showValidationMessage = false
+    @State private var showClearConfirmation = false
+    @State private var showOnboarding = false
+
+    private let hasSeenOnboardingKey = "hasSeenOnboarding"
 
     private var navigationBinding: Binding<Bool> {
         Binding(
@@ -47,6 +52,15 @@ struct InputTextView: View {
         .navigationTitle("Scholarly")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    HapticManager.shared.light()
+                    isShowingHistory = true
+                } label: {
+                    Image(systemName: "clock.arrow.circlepath")
+                }
+            }
+
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button("Done") {
@@ -74,6 +88,21 @@ struct InputTextView: View {
                 }
             }
         )
+        .alert(
+            "Clear All Text?",
+            isPresented: $showClearConfirmation,
+            actions: {
+                Button("Cancel", role: .cancel) { }
+                Button("Clear", role: .destructive) {
+                    HapticManager.shared.success()
+                    viewModel.text = ""
+                    isTextEditorFocused = false
+                }
+            },
+            message: {
+                Text("This will delete all text in the editor.")
+            }
+        )
         .sheet(isPresented: $isShowingImagePicker) {
             LegacyImagePicker(
                 sourceType: .photoLibrary,
@@ -95,6 +124,11 @@ struct InputTextView: View {
                 }
             }
         }
+        .sheet(isPresented: $isShowingHistory) {
+            ReadingHistoryView { selectedText in
+                viewModel.text = selectedText
+            }
+        }
         .background(
             NavigationLink(
                 destination: ReadingChoicesView(
@@ -105,6 +139,14 @@ struct InputTextView: View {
                 .hidden()
         )
         .animation(.easeInOut, value: showValidationMessage)
+        .overlay {
+            if showOnboarding {
+                onboardingOverlay
+            }
+        }
+        .onAppear {
+            checkFirstLaunch()
+        }
     }
 
     // MARK: - Subviews
@@ -116,8 +158,8 @@ struct InputTextView: View {
             if viewModel.text.isEmpty {
                 Text(viewModel.placeholderText)
                     .foregroundColor(.gray)
-                    .padding(.horizontal, 28)
-                    .padding(.vertical, 22)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 24)
             }
 
             if viewModel.isRecognizingText {
@@ -130,11 +172,31 @@ struct InputTextView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+
+            // Clear button - top right
+            if !viewModel.text.isEmpty {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button {
+                            HapticManager.shared.light()
+                            showClearConfirmation = true
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title2)
+                                .foregroundStyle(.secondary, Color(uiColor: .tertiarySystemBackground))
+                                .symbolRenderingMode(.palette)
+                        }
+                        .padding(12)
+                    }
+                    Spacer()
+                }
+            }
         }
-        .frame(minHeight: 260, alignment: .topLeading)
+        .frame(minHeight: 260, maxHeight: 450, alignment: .topLeading)
         .background(
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.white)
+                .fill(Color(uiColor: .tertiarySystemBackground))
                 .shadow(color: Color.black.opacity(0.08), radius: 16, x: 0, y: 12)
         )
     }
@@ -158,14 +220,17 @@ struct InputTextView: View {
     private var actionButtons: some View {
         VStack(spacing: 16) {
             ReaderActionButton(title: "Scan", systemImage: "doc.viewfinder") {
+                HapticManager.shared.medium()
                 isShowingScan = true
             }
 
             ReaderActionButton(title: "Upload", systemImage: "photo.on.rectangle") {
+                HapticManager.shared.medium()
                 isShowingImagePicker = true
             }
 
             ReaderActionButton(title: "Speak", systemImage: "waveform") {
+                HapticManager.shared.medium()
                 isShowingSpeechRecognizer = true
             }
         }
@@ -174,8 +239,10 @@ struct InputTextView: View {
     private var nextButton: some View {
         Button {
             if let readingText = viewModel.prepareReadingText() {
+                HapticManager.shared.light()
                 readingTextForNavigation = readingText
             } else {
+                HapticManager.shared.warning()
                 showValidationBanner()
             }
         } label: {
@@ -188,14 +255,99 @@ struct InputTextView: View {
     private var validationBanner: some View {
         Text("Add some text before continuing.")
             .font(.subheadline.weight(.semibold))
-            .foregroundColor(.white)
             .padding(.horizontal, 18)
             .padding(.vertical, 10)
             .background(Color.red.opacity(0.9), in: Capsule())
             .padding(.top, 16)
     }
 
+    private var onboardingOverlay: some View {
+        ZStack {
+            Color.black.opacity(0.75)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    dismissOnboarding()
+                }
+
+            VStack(spacing: 24) {
+                VStack(spacing: 12) {
+                    Text("Welcome to Scholarly!")
+                        .font(.title.bold())
+                        .foregroundColor(.white)
+
+                    Text("Add any text and choose how you want to read it:")
+                        .font(.body)
+                        .foregroundColor(.white.opacity(0.9))
+                        .multilineTextAlignment(.center)
+                }
+                .padding(.horizontal, 32)
+
+                VStack(spacing: 20) {
+                    OnboardingModeRow(
+                        icon: "gauge.with.dots.needle.50percent",
+                        title: "Speed Reading",
+                        description: "Read faster with RSVP technique"
+                    )
+
+                    OnboardingModeRow(
+                        icon: "speaker.wave.2",
+                        title: "Text-to-Speech",
+                        description: "Listen while text highlights"
+                    )
+
+                    OnboardingModeRow(
+                        icon: "scroll",
+                        title: "Scroll Reading",
+                        description: "Auto-scroll at your own pace"
+                    )
+                }
+                .padding(.horizontal, 24)
+
+                Button {
+                    dismissOnboarding()
+                } label: {
+                    Text("Get Started")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(Color.readerAccent)
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                }
+                .padding(.horizontal, 32)
+                .padding(.top, 8)
+            }
+            .padding(.vertical, 40)
+            .background(
+                RoundedRectangle(cornerRadius: 24, style: .continuous)
+                    .fill(Color(uiColor: .systemBackground))
+            )
+            .padding(.horizontal, 24)
+            .shadow(color: Color.black.opacity(0.3), radius: 30, x: 0, y: 10)
+        }
+        .transition(.opacity.combined(with: .scale(scale: 0.95)))
+    }
+
     // MARK: - Helpers
+
+    private func checkFirstLaunch() {
+        let hasSeenOnboarding = UserDefaults.standard.bool(forKey: hasSeenOnboardingKey)
+        if !hasSeenOnboarding {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    showOnboarding = true
+                }
+            }
+        }
+    }
+
+    private func dismissOnboarding() {
+        HapticManager.shared.success()
+        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+            showOnboarding = false
+        }
+        UserDefaults.standard.set(true, forKey: hasSeenOnboardingKey)
+    }
 
     private func showValidationBanner() {
         showValidationMessage = true
@@ -214,7 +366,8 @@ private struct ReaderActionButton: View {
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 16) {
+            HStack {
+                Spacer()
                 Image(systemName: systemImage)
                     .font(.title3)
                     .foregroundColor(.white)
@@ -253,7 +406,6 @@ private struct ReaderSecondaryButtonStyle: ButtonStyle {
             .padding(.vertical, 14)
             .padding(.horizontal, 20)
             .frame(maxWidth: .infinity)
-            .background(Color.white)
             .foregroundColor(.readerAccent)
             .overlay(
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
@@ -268,6 +420,40 @@ private struct ReaderSecondaryButtonStyle: ButtonStyle {
             )
             .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+    }
+}
+
+// MARK: - Onboarding Components
+
+private struct OnboardingModeRow: View {
+    let icon: String
+    let title: String
+    let description: String
+
+    var body: some View {
+        HStack(spacing: 16) {
+            Image(systemName: icon)
+                .font(.title2)
+                .foregroundColor(.readerAccent)
+                .frame(width: 44, height: 44)
+                .background(Color.readerAccent.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+
+                Text(description)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+
+            Spacer()
+        }
+        .padding(16)
+        .background(Color(uiColor: .secondarySystemBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }
 
