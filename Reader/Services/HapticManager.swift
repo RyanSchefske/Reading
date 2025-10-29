@@ -71,10 +71,4 @@ final class HapticManager {
         notification.notificationOccurred(.error)
         notification.prepare()
     }
-
-    /// Selection feedback - for picker/segmented control changes
-    func selection() {
-        selection.selectionChanged()
-        selection.prepare()
-    }
 }

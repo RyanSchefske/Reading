@@ -21,6 +21,12 @@ struct ReadingChoicesView: View {
         ScrollView {
             VStack(spacing: 24) {
                 header
+
+                // AI Summary Button (if available)
+                if viewModel.isAISummaryAvailable {
+                    aiSummaryButton
+                }
+
                 choiceCards
                 AdBannerView()
                     .frame(height: 50)
@@ -64,6 +70,7 @@ struct ReadingChoicesView: View {
                 ScrollReadingView(readingText: viewModel.readingText)
             }
         }
+        .modifier(SummarySheetModifier(isPresented: $viewModel.showSummary, text: viewModel.readingText))
     }
 
     private var header: some View {
@@ -89,6 +96,44 @@ struct ReadingChoicesView: View {
                     y: 12
                 )
         )
+    }
+
+    private var aiSummaryButton: some View {
+        Button {
+            viewModel.openAISummary()
+        } label: {
+            HStack(spacing: 16) {
+                Image(systemName: "sparkles.rectangle.stack")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("AI Summary")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    Text("Get key points and a summary using Apple Intelligence")
+                        .font(.subheadline)
+                        .foregroundColor(.white.opacity(0.9))
+                }
+                Spacer()
+            }
+            .padding(20)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(
+                LinearGradient(
+                    colors: [Color.readerAccent, Color.readerAccent.opacity(0.8)],
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
+            .cornerRadius(18)
+            .shadow(
+                color: Color.readerAccent.opacity(0.3),
+                radius: 12,
+                x: 0,
+                y: 8
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 
     private var choiceCards: some View {
@@ -147,6 +192,23 @@ private struct ReaderCardButtonStyle: ButtonStyle {
             )
             .scaleEffect(configuration.isPressed ? 0.98 : 1)
             .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+    }
+}
+
+// MARK: - Summary Sheet Modifier
+
+private struct SummarySheetModifier: ViewModifier {
+    @Binding var isPresented: Bool
+    let text: String
+
+    func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content.sheet(isPresented: $isPresented) {
+                SummaryView(text: text)
+            }
+        } else {
+            content
+        }
     }
 }
 

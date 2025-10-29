@@ -66,6 +66,7 @@ final class ReadingChoicesViewModel: ObservableObject {
     @Published var navigationDestination: Destination?
     @Published var showError: Bool = false
     @Published var errorMessage: String?
+    @Published var showSummary: Bool = false
 
     // MARK: - Dependencies
 
@@ -75,6 +76,18 @@ final class ReadingChoicesViewModel: ObservableObject {
     // MARK: - Private State
 
     private var clicks: Int = 0
+
+    // MARK: - Computed Properties
+
+    var isAISummaryAvailable: Bool {
+        // Check if text is long enough and Apple Intelligence is available
+        let wordCount = readingText.components(separatedBy: .whitespacesAndNewlines).filter { !$0.isEmpty }.count
+        if #available(iOS 26.0, *) {
+            return wordCount > 20 && TextSummaryService.shared.isAvailable
+        } else {
+            return false
+        }
+    }
 
     // MARK: - Initialization
 
@@ -105,6 +118,11 @@ final class ReadingChoicesViewModel: ObservableObject {
             presentInterstitialIfNeeded()
             navigationDestination = destination
         }
+    }
+
+    func openAISummary() {
+        HapticManager.shared.light()
+        showSummary = true
     }
 
     // MARK: - Helpers
