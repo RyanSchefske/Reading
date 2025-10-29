@@ -18,6 +18,7 @@ struct ReadingStats: Codable {
     var streakDays: Int = 0
     var longestStreak: Int = 0
     var lastReadDate: Date?
+    var dailyStats: [DailyStats] = []
 
     // MARK: - Computed Properties
 
@@ -60,5 +61,20 @@ struct ReadingStats: Codable {
         } else {
             return "\(longestStreak) days"
         }
+    }
+}
+
+// MARK: - Daily Stats
+
+/// Tracks statistics for a single day
+struct DailyStats: Codable, Identifiable {
+    let id = UUID()
+    let date: Date
+    var wordsRead: Int
+    var timeSpent: TimeInterval
+    var sessionsCompleted: Int
+
+    private enum CodingKeys: String, CodingKey {
+        case date, wordsRead, timeSpent, sessionsCompleted
     }
 }

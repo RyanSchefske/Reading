@@ -21,6 +21,22 @@ final class ReadingHistoryRepository: ObservableObject {
 
     private let key = "readingHistory"
     private let maxItems = 50
+    private let freeUserLimit = 10
+
+    // MARK: - Computed Properties
+
+    /// Returns history limited by subscription tier
+    var displayHistory: [ReadingHistoryItem] {
+        if SubscriptionManager.shared.isPro {
+            return history
+        } else {
+            return Array(history.prefix(freeUserLimit))
+        }
+    }
+
+    var isAtFreeLimit: Bool {
+        !SubscriptionManager.shared.isPro && history.count >= freeUserLimit
+    }
 
     // MARK: - Initialization
 

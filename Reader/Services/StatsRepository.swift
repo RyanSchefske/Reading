@@ -23,6 +23,21 @@ final class StatsRepository: ObservableObject {
 
     private let key = "readingStats"
 
+    // MARK: - Computed Properties
+
+    /// Returns stats limited by subscription tier
+    var displayStats: ReadingStats {
+        if SubscriptionManager.shared.isPro {
+            return stats
+        } else {
+            return filteredStatsForFreeUser()
+        }
+    }
+
+    var isShowingLimitedStats: Bool {
+        !SubscriptionManager.shared.isPro && !stats.dailyStats.isEmpty
+    }
+
     // MARK: - Initialization
 
     private init() {
@@ -37,6 +52,7 @@ final class StatsRepository: ObservableObject {
         stats.totalTimeSpent += duration
         stats.sessionsCompleted += 1
 
+        updateDailyStats(wordCount: wordCount, duration: duration)
         updateStreak()
         persist()
     }
@@ -48,6 +64,36 @@ final class StatsRepository: ObservableObject {
     }
 
     // MARK: - Private Methods
+
+    private func updateDailyStats(wordCount: Int, duration: TimeInterval) {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+
+        // Find or create today's daily stats
+        if let index = stats.dailyStats.firstIndex(where: {
+            calendar.isDate($0.date, inSameDayAs: today)
+        }) {
+            // Update existing daily stats
+            stats.dailyStats[index].wordsRead += wordCount
+            stats.dailyStats[index].timeSpent += duration
+            stats.dailyStats[index].sessionsCompleted += 1
+        } else {
+            // Create new daily stats
+            let newDailyStats = DailyStats(
+                date: today,
+                wordsRead: wordCount,
+                timeSpent: duration,
+                sessionsCompleted: 1
+            )
+            stats.dailyStats.append(newDailyStats)
+        }
+
+        // Keep only last 90 days of daily stats (for Pro users)
+        stats.dailyStats = stats.dailyStats.sorted { $0.date > $1.date }
+        if stats.dailyStats.count > 90 {
+            stats.dailyStats = Array(stats.dailyStats.prefix(90))
+        }
+    }
 
     private func updateStreak() {
         let calendar = Calendar.current
@@ -80,6 +126,29 @@ final class StatsRepository: ObservableObject {
             stats.longestStreak = 1
             stats.lastReadDate = Date()
         }
+    }
+
+    private func filteredStatsForFreeUser() -> ReadingStats {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let sevenDaysAgo = calendar.date(byAdding: .day, value: -7, to: today) ?? today
+
+        // Filter daily stats to last 7 days
+        let recentDailyStats = stats.dailyStats.filter { $0.date >= sevenDaysAgo }
+
+        // Calculate totals from recent stats only
+        let recentWordsRead = recentDailyStats.reduce(0) { $0 + $1.wordsRead }
+        let recentTimeSpent = recentDailyStats.reduce(0.0) { $0 + $1.timeSpent }
+        let recentSessions = recentDailyStats.reduce(0) { $0 + $1.sessionsCompleted }
+
+        var filteredStats = stats
+        filteredStats.totalWordsRead = recentWordsRead
+        filteredStats.totalTimeSpent = recentTimeSpent
+        filteredStats.sessionsCompleted = recentSessions
+        filteredStats.dailyStats = recentDailyStats
+        // Keep streak info unchanged (still motivational even for free users)
+
+        return filteredStats
     }
 
     private func persist() {

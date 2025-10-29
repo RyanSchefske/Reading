@@ -11,6 +11,7 @@ import SwiftUI
 struct ReadingHistoryView: View {
 
     @StateObject private var repository = ReadingHistoryRepository.shared
+    @StateObject private var subscriptionManager = SubscriptionManager.shared
     @Environment(\.dismiss) private var dismiss
     @State private var showDeleteAllConfirmation = false
 
@@ -60,7 +61,41 @@ struct ReadingHistoryView: View {
 
     private var historyList: some View {
         List {
-            ForEach(repository.history) { item in
+            // Upgrade prompt for free users at limit
+            if repository.isAtFreeLimit {
+                Section {
+                    Button {
+                        HapticManager.shared.light()
+                        subscriptionManager.showPaywall = true
+                    } label: {
+                        HStack(spacing: 12) {
+                            Image(systemName: "crown.fill")
+                                .font(.title2)
+                                .foregroundColor(.yellow)
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text("Upgrade for Unlimited History")
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+
+                                Text("Free users see last 10 items only")
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.secondary)
+                                .font(.caption)
+                        }
+                        .padding(.vertical, 8)
+                    }
+                }
+            }
+
+            // History items
+            ForEach(repository.displayHistory) { item in
                 HistoryRow(item: item)
                     .contentShape(Rectangle())
                     .onTapGesture {
@@ -72,7 +107,8 @@ struct ReadingHistoryView: View {
             .onDelete { indexSet in
                 HapticManager.shared.light()
                 indexSet.forEach { index in
-                    repository.delete(repository.history[index].id)
+                    let itemToDelete = repository.displayHistory[index]
+                    repository.delete(itemToDelete.id)
                 }
             }
         }

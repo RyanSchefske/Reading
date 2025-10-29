@@ -23,9 +23,11 @@ final class RatingManager {
     private let lastPromptKey = "lastRatingPromptDate"
     private let hasDeclinedKey = "hasDeclinedRating"
     private let lastPromptedVersionKey = "lastRatingPromptVersion"
+    private let hasShownMilestonePaywallKey = "hasShownMilestonePaywall"
 
     private let minimumSessions = 3
     private let daysBetweenPrompts = 30
+    private let milestoneSessionCount = 3
 
     /// Current app version from bundle
     private var currentAppVersion: String {
@@ -39,14 +41,25 @@ final class RatingManager {
     // MARK: - Public Methods
 
     /// Call after a successful reading session
-    func incrementSessionCount() {
+    /// Returns true if milestone paywall should be shown
+    func incrementSessionCount() -> Bool {
         let count = sessionCount
         UserDefaults.standard.set(count + 1, forKey: sessionsKey)
 
-        // Check if we should prompt
-        if shouldPromptForRating() {
+        // Check if we should show milestone paywall (only for free users)
+        let shouldShowMilestone = shouldShowMilestonePaywall()
+
+        // Check if we should prompt for rating (only if not showing paywall)
+        if !shouldShowMilestone && shouldPromptForRating() {
             requestReview()
         }
+
+        return shouldShowMilestone
+    }
+
+    /// Mark milestone paywall as shown
+    func markMilestonePaywallShown() {
+        UserDefaults.standard.set(true, forKey: hasShownMilestonePaywallKey)
     }
 
     /// Request review from user
@@ -87,6 +100,21 @@ final class RatingManager {
 
     private var lastPromptedVersion: String? {
         UserDefaults.standard.string(forKey: lastPromptedVersionKey)
+    }
+
+    private var hasShownMilestonePaywall: Bool {
+        UserDefaults.standard.bool(forKey: hasShownMilestonePaywallKey)
+    }
+
+    private func shouldShowMilestonePaywall() -> Bool {
+        // Don't show if already shown
+        guard !hasShownMilestonePaywall else { return false }
+
+        // Don't show if already Pro
+        guard !SubscriptionManager.shared.isPro else { return false }
+
+        // Show after exactly 3 sessions
+        return sessionCount == milestoneSessionCount
     }
 
     private func shouldPromptForRating() -> Bool {

@@ -162,8 +162,12 @@ final class SpeedReadingViewModel: ObservableObject {
                     stopReading()
                     reset()
 
-                    // Increment session count for rating prompt
-                    RatingManager.shared.incrementSessionCount()
+                    // Check for milestone paywall or rating prompt
+                    let shouldShowPaywall = RatingManager.shared.incrementSessionCount()
+                    if shouldShowPaywall {
+                        SubscriptionManager.shared.showPaywall = true
+                        RatingManager.shared.markMilestonePaywallShown()
+                    }
 
                     break
                 }

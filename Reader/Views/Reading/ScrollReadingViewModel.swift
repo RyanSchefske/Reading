@@ -117,8 +117,12 @@ final class ScrollReadingViewModel: ObservableObject {
                     stopScrolling()
                     reset()
 
-                    // Increment session count for rating prompt
-                    RatingManager.shared.incrementSessionCount()
+                    // Check for milestone paywall or rating prompt
+                    let shouldShowPaywall = RatingManager.shared.incrementSessionCount()
+                    if shouldShowPaywall {
+                        SubscriptionManager.shared.showPaywall = true
+                        RatingManager.shared.markMilestonePaywallShown()
+                    }
 
                     break
                 }

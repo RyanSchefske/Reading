@@ -12,6 +12,7 @@ struct StatsView: View {
     // MARK: - Properties
 
     @StateObject private var repository = StatsRepository.shared
+    @StateObject private var subscriptionManager = SubscriptionManager.shared
 
     // MARK: - Body
 
@@ -19,6 +20,11 @@ struct StatsView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
+                    // Upgrade banner for free users
+                    if repository.isShowingLimitedStats {
+                        upgradeBanner
+                    }
+
                     if repository.stats.sessionsCompleted == 0 {
                         emptyState
                     } else {
@@ -54,6 +60,53 @@ struct StatsView: View {
         .padding(40)
     }
 
+    private var upgradeBanner: some View {
+        Button {
+            HapticManager.shared.light()
+            subscriptionManager.showPaywall = true
+        } label: {
+            HStack(spacing: 16) {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.readerAccent, Color.readerAccent.opacity(0.7)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 50, height: 50)
+
+                    Image(systemName: "crown.fill")
+                        .foregroundColor(.white)
+                        .font(.title2)
+                }
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Showing Last 7 Days Only")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+
+                    Text("Upgrade to Pro for all-time statistics")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                }
+
+                Spacer()
+
+                Image(systemName: "arrow.right.circle.fill")
+                    .font(.title2)
+                    .foregroundColor(.readerAccent)
+            }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color(uiColor: .secondarySystemGroupedBackground))
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
+
     private var statsGrid: some View {
         LazyVGrid(
             columns: [
@@ -65,40 +118,40 @@ struct StatsView: View {
             StatCard(
                 icon: "book.fill",
                 title: "Words Read",
-                value: formatNumber(repository.stats.totalWordsRead)
+                value: formatNumber(repository.displayStats.totalWordsRead)
             )
 
             StatCard(
                 icon: "clock.fill",
                 title: "Time Spent",
-                value: repository.stats.formattedTotalTime
+                value: repository.displayStats.formattedTotalTime
             )
 
             StatCard(
                 icon: "checkmark.circle.fill",
                 title: "Sessions",
-                value: "\(repository.stats.sessionsCompleted)",
+                value: "\(repository.displayStats.sessionsCompleted)",
                 color: .green
             )
 
             StatCard(
                 icon: "gauge.high",
                 title: "Avg WPM",
-                value: "\(repository.stats.averageWPM)",
+                value: "\(repository.displayStats.averageWPM)",
                 color: .purple
             )
 
             StatCard(
                 icon: "flame.fill",
                 title: "Current Streak",
-                value: repository.stats.streakText,
+                value: repository.displayStats.streakText,
                 color: .orange
             )
 
             StatCard(
                 icon: "trophy.fill",
                 title: "Longest Streak",
-                value: repository.stats.longestStreakText,
+                value: repository.displayStats.longestStreakText,
                 color: .yellow
             )
         }
