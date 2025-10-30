@@ -35,16 +35,21 @@ struct PaywallView: View {
             )
             .ignoresSafeArea()
 
-            ScrollView {
-                VStack(spacing: 32) {
-                    header
-                    featuresSection
+            VStack {
+                ScrollView {
+                    VStack(spacing: 32) {
+                        header
+                        featuresSection
+                    }
+                    .padding()
+                }
+                VStack {
                     pricingSection
                     ctaButton
-                    restoreButton
-                    disclaimerText
+                    footerLinks
                 }
-                .padding()
+                .padding(.horizontal)
+//                disclaimerText
             }
         }
         .overlay {
@@ -155,25 +160,24 @@ struct PaywallView: View {
             selectedPackage = package
         } label: {
             VStack(spacing: 12) {
-                // Badge
-                if isFeatured {
-                    Text("BEST VALUE")
-                        .font(.caption.bold())
-                        .foregroundColor(.white)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(
-                            Capsule()
-                                .fill(Color.green)
-                        )
-                }
-
                 // Title and price
                 HStack {
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .center, spacing: 4) {
                         Text(package.storeProduct.localizedTitle)
                             .font(.headline)
                             .foregroundColor(.primary)
+                        
+                        if isFeatured {
+                            Text("BEST VALUE")
+                                .font(.caption.bold())
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(
+                                    Capsule()
+                                        .fill(Color.green)
+                                )
+                        }
 
                         if let introOffer = package.storeProduct.introductoryDiscount {
                             Text("\(introOffer.subscriptionPeriod.periodTitle) free trial")
@@ -185,26 +189,19 @@ struct PaywallView: View {
                     Spacer()
 
                     VStack(alignment: .trailing, spacing: 4) {
-                        Text(package.storeProduct.localizedPriceString)
-                            .font(.title3.bold())
-                            .foregroundColor(.primary)
+                        HStack {
+                            Text(package.storeProduct.localizedPriceString)
+                                .font(.title3.bold())
+                                .foregroundColor(.primary)
+                            Text(package.packageType == .annual ? "/ year" : "/ month")
+                                .font(.caption)
+                        }
 
                         if package.packageType == .annual {
                             Text("Save 33%")
                                 .font(.caption)
                                 .foregroundColor(.green)
                         }
-                    }
-                }
-
-                // Checkmark
-                if selectedPackage?.identifier == package.identifier {
-                    HStack {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.green)
-                        Text("Selected")
-                            .font(.subheadline)
-                            .foregroundColor(.green)
                     }
                 }
             }
@@ -222,6 +219,20 @@ struct PaywallView: View {
                             )
                     )
             )
+            .overlay {
+                HStack {
+                    Spacer()
+                    VStack {
+                        if selectedPackage?.identifier == package.identifier {
+                            Image(systemName: "checkmark.circle.fill")
+                                .foregroundColor(.green)
+                                .font(.title2)
+                                .padding(3)
+                        }
+                        Spacer()
+                    }
+                }
+            }
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -275,18 +286,36 @@ struct PaywallView: View {
         }
     }
 
-    private var restoreButton: some View {
-        Button {
-            Task {
-                await restorePurchases()
+    private var footerLinks: some View {
+        HStack(spacing: 16) {
+            Button {
+                Task {
+                    await restorePurchases()
+                }
+            } label: {
+                Text("Restore")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
             }
-        } label: {
-            Text("Restore Purchases")
-                .font(.subheadline)
+            .disabled(isLoading)
+
+            Text("•")
+                .font(.caption)
                 .foregroundColor(.secondary)
-                .underline()
+
+            Link("Privacy", destination: URL(string: "https://ryanschefske.github.io/scholarlyPrivacyPolicyindex")!)
+                .font(.caption)
+                .foregroundColor(.secondary)
+
+            Text("•")
+                .font(.caption)
+                .foregroundColor(.secondary)
+
+            Link("Terms", destination: URL(string: "https://ryanschefske.github.io/scholarlyTermsAndConditionsindex")!)
+                .font(.caption)
+                .foregroundColor(.secondary)
         }
-        .disabled(isLoading)
+        .padding(.top, 8)
     }
 
     private var disclaimerText: some View {

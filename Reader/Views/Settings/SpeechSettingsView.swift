@@ -20,6 +20,7 @@ struct SpeechSettingsView: View {
             }
             voiceSection
             speedSection
+            legalSection
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
@@ -120,6 +121,34 @@ struct SpeechSettingsView: View {
             }
         } header: {
             Text("Speed")
+        }
+    }
+
+    private var legalSection: some View {
+        Section {
+            Link(destination: URL(string: "https://ryanschefske.github.io/scholarlyPrivacyPolicyindex")!) {
+                HStack {
+                    Text("Privacy Policy")
+                        .foregroundColor(.primary)
+                    Spacer()
+                    Image(systemName: "arrow.up.right.square")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
+
+            Link(destination: URL(string: "https://ryanschefske.github.io/scholarlyTermsAndConditionsindex")!) {
+                HStack {
+                    Text("Terms and Conditions")
+                        .foregroundColor(.primary)
+                    Spacer()
+                    Image(systemName: "arrow.up.right.square")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+            }
+        } header: {
+            Text("Legal")
         }
     }
 }
